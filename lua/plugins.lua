@@ -12,5 +12,9 @@ return {
             "nvim-treesitter/nvim-treesitter-textobjects"
         },
         build = ":TSUpdate",
+    },
+    {
+        "folke/tokyonight.nvim",
+        priority = 1000
     }
 }

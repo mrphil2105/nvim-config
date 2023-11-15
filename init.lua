@@ -17,3 +17,5 @@ require("lazy").setup("plugins")
 require("lsp")
 require("treesitter")
 require("options")
+
+vim.cmd[[colorscheme tokyonight-night]]
