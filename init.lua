@@ -15,4 +15,5 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
 require("lsp")
+require("treesitter")
 require("options")
