@@ -26,6 +26,11 @@ return {
         }
     },
     {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {}
+    },
+    {
         "folke/tokyonight.nvim",
         priority = 1000
     }
