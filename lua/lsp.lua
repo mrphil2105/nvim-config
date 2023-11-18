@@ -18,7 +18,7 @@ mason_lspconfig.setup {
     ensure_installed = vim.tbl_keys(servers)
 }
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 mason_lspconfig.setup_handlers {
     function(server_name)
