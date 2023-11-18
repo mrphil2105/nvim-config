@@ -26,6 +26,10 @@ return {
         }
     },
     {
+        "akinsho/toggleterm.nvim",
+        opts = {}
+    },
+    {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
         opts = {}

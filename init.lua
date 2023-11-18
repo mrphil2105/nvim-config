@@ -17,6 +17,7 @@ require("lazy").setup("plugins")
 require("lsp")
 require("treesitter")
 require("auto")
+require("term")
 require("indent")
 require("options")
 
