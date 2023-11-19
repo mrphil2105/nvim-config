@@ -18,5 +18,6 @@ cmp.setup {
         { name = "ultisnips" },
     }, {
         { name = "buffer" },
+        { name = "path" },
     })
 }
