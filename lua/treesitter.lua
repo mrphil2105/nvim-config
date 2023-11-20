@@ -1,6 +1,8 @@
 vim.defer_fn(function()
     require("nvim-treesitter.configs").setup {
-        ensure_installed = { "c", "lua", "vim", "vimdoc" },
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "bash", "make", "cmake", "rust", "cpp", "c_sharp", "java",
+            "kotlin", "python", "go", "proto", "html", "css", "scss", "javascript", "typescript", "tsx", "json",
+            "yaml", "toml", "xml", "gitignore", "gitattributes", "regex", "sql", "dockerfile", "latex" },
         highlight = { enable = true },
         indent = { enable = true },
         incremental_selection = {
