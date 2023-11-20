@@ -43,6 +43,9 @@ return {
         opts = {}
     },
     {
+        "mfussenegger/nvim-lint"
+    },
+    {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
         opts = {}

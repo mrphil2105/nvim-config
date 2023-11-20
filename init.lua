@@ -23,6 +23,7 @@ require("auto")
 require("tree")
 require("tele")
 require("term")
+require("linter")
 require("indent")
 require("options")
 
