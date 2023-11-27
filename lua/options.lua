@@ -10,7 +10,10 @@ vim.o.shiftwidth = 4 -- Indent four spaces
 
 vim.o.undofile = true -- Save undo history
 
-vim.wo.signcolumn = "yes" -- Show sign column
+vim.opt.signcolumn = "yes" -- Show sign column
+
+vim.opt.textwidth = 120 -- Max text line width
+vim.opt.colorcolumn = "+1" -- Max line width indicator
 
 vim.o.updatetime = 1000 -- Swap file delay
 
