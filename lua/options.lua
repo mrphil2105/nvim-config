@@ -1,4 +1,5 @@
-vim.wo.number = true -- Line numbers
+vim.opt.number = true -- Line numbers
+vim.opt.relativenumber = true -- Relative line numbers
 
 vim.o.hlsearch = false -- Highlight on search
 
