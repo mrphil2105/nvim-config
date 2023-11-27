@@ -43,6 +43,9 @@ return {
         opts = {}
     },
     {
+        "jiangmiao/auto-pairs"
+    },
+    {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
         opts = {}
