@@ -59,3 +59,9 @@ mason_lspconfig.setup_handlers {
         }
     end
 }
+
+require("lsp_signature").setup {
+    handler_opts = {
+        border = "single"
+    }
+}
