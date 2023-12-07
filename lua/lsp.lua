@@ -47,6 +47,17 @@ local on_attach = function(client, buffer)
         })
         vim.cmd("EslintFixAll")
     end
+
+    vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = buffer,
+        callback = function()
+            vim.lsp.buf.format({
+                filter = function(c)
+                    return c.id == client.id
+                end
+            })
+        end
+    })
 end
 
 mason_lspconfig.setup_handlers {
