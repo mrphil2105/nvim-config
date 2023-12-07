@@ -52,6 +52,9 @@ return {
         opts = {}
     },
     {
+        "ckipp01/stylua-nvim"
+    },
+    {
         "folke/tokyonight.nvim",
         priority = 1000
     }
