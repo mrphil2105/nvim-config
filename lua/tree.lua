@@ -1,10 +1,10 @@
 require("nvim-tree").setup {
     tab = {
         sync = {
-            open = true
-        }
+            open = true,
+        },
     },
     renderer = {
-        root_folder_label = false
-    }
+        root_folder_label = false,
+    },
 }

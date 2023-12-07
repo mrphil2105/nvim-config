@@ -4,13 +4,13 @@ return {
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "ray-x/lsp_signature.nvim"
-        }
+            "ray-x/lsp_signature.nvim",
+        },
     },
     {
         "nvim-treesitter/nvim-treesitter",
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects"
+            "nvim-treesitter/nvim-treesitter-textobjects",
         },
         build = ":TSUpdate",
     },
@@ -23,39 +23,39 @@ return {
             "hrsh7th/cmp-cmdline",
             "SirVer/ultisnips",
             "quangnguyen30192/cmp-nvim-ultisnips",
-            "honza/vim-snippets"
-        }
+            "honza/vim-snippets",
+        },
     },
     {
         "nvim-tree/nvim-tree.lua",
         dependencies = {
-            "nvim-tree/nvim-web-devicons"
-        }
+            "nvim-tree/nvim-web-devicons",
+        },
     },
     {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
         dependencies = {
-            "nvim-lua/plenary.nvim"
-        }
+            "nvim-lua/plenary.nvim",
+        },
     },
     {
         "akinsho/toggleterm.nvim",
-        opts = {}
+        opts = {},
     },
     {
-        "jiangmiao/auto-pairs"
+        "jiangmiao/auto-pairs",
     },
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
-        opts = {}
+        opts = {},
     },
     {
-        "ckipp01/stylua-nvim"
+        "ckipp01/stylua-nvim",
     },
     {
         "folke/tokyonight.nvim",
-        priority = 1000
-    }
+        priority = 1000,
+    },
 }

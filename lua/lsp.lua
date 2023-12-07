@@ -4,19 +4,19 @@ local servers = {
         Lua = {
             workspace = { checkThirdParty = false },
             diagnostics = {
-                globals = { "vim" }
+                globals = { "vim" },
             },
             telemetry = { enable = false },
         },
     },
-    tsserver = {}
+    tsserver = {},
 }
 
 require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")
 
 mason_lspconfig.setup {
-    ensure_installed = vim.tbl_keys(servers)
+    ensure_installed = vim.tbl_keys(servers),
 }
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -43,7 +43,7 @@ local on_attach = function(client, buffer)
     if client.name == "eslint" then
         vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = buffer,
-            command = "EslintFixAll"
+            command = "EslintFixAll",
         })
         vim.cmd("EslintFixAll")
     end
@@ -54,13 +54,13 @@ local on_attach = function(client, buffer)
             if client.name == "lua_ls" then
                 require("stylua-nvim").format_file()
             else
-                vim.lsp.buf.format({
+                vim.lsp.buf.format {
                     filter = function(c)
                         return c.id == client.id
-                    end
-                })
+                    end,
+                }
             end
-        end
+        end,
     })
 end
 
@@ -70,13 +70,13 @@ mason_lspconfig.setup_handlers {
             capabilities = capabilities,
             on_attach = on_attach,
             settings = servers[server_name],
-            filetypes = (servers[server_name] or {}).filetypes
+            filetypes = (servers[server_name] or {}).filetypes,
         }
-    end
+    end,
 }
 
 require("lsp_signature").setup {
     handler_opts = {
-        border = "single"
-    }
+        border = "single",
+    },
 }
