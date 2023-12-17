@@ -4,6 +4,7 @@ return {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "ray-x/lsp_signature.nvim",
+        "folke/neodev.nvim",
     },
     config = function()
         local servers = require("plugins.lsp.servers")
@@ -12,6 +13,7 @@ return {
 
         require("mason").setup {}
         local mason_lspconfig = require("mason-lspconfig")
+        require("neodev").setup {}
 
         mason_lspconfig.setup {
             ensure_installed = vim.tbl_keys(servers),
