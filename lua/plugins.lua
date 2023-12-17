@@ -10,6 +10,9 @@ return {
     require("plugins.tree"),
     require("plugins.telescope"),
 
+    -- Git
+    require("plugins.gitsigns"),
+
     -- Terminal
     require("plugins.toggleterm"),
 
