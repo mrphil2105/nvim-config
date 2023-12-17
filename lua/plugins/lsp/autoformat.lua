@@ -6,9 +6,7 @@ return function(client, buffer)
                 require("stylua-nvim").format_file()
             else
                 vim.lsp.buf.format {
-                    filter = function(c)
-                        return c.id == client.id
-                    end,
+                    filter = function(c) return c.id == client.id end,
                 }
             end
         end,

@@ -14,9 +14,7 @@ return {
 
         cmp.setup {
             snippet = {
-                expand = function(args)
-                    vim.fn["UltiSnips#Anon"](args.body)
-                end,
+                expand = function(args) vim.fn["UltiSnips#Anon"](args.body) end,
             },
             mapping = cmp.mapping.preset.insert {
                 ["<C-b>"] = cmp.mapping.scroll_docs(-4),
