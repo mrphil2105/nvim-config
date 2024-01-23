@@ -3,7 +3,7 @@ return {
     config = function()
         require("gitsigns").setup {
             on_attach = function(buffer)
-                local gs = package.loaded.gitsigns
+                local gs = require("gitsigns")
 
                 local nmap = function(keys, func, opts)
                     opts = opts or {}
