@@ -7,6 +7,12 @@ return {
         local dap = require("dap")
         dap.defaults.fallback.terminal_win_cmd = "tabnew"
 
+        local configs = { "nodejs" }
+
+        for _, config in ipairs(configs) do
+            require("plugins.dap." .. config).setup()
+        end
+
         vim.keymap.set("n", "<leader>bt", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
         vim.keymap.set("n", "<leader>be", dap.set_exception_breakpoints, { desc = "Exception Breakpoints" })
         vim.keymap.set("n", "<leader>bc", dap.continue, { desc = "Continue Execution" })
