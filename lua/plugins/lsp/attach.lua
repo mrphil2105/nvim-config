@@ -1,3 +1,4 @@
+---@diagnostic disable-next-line: unused-local
 return function(client, buffer)
     local nmap = function(keys, func, desc)
         if desc then desc = "LSP: " .. desc end
@@ -15,7 +16,4 @@ return function(client, buffer)
     nmap("<leader>td", builtin.lsp_type_definitions, "[T]ype [D]efinition")
     nmap("<leader>ds", builtin.lsp_document_symbols, "[D]ocument [S]ymbols")
     nmap("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-
-    require("plugins.lsp.eslint")(client, buffer)
-    require("plugins.lsp.autoformat")(client, buffer)
 end
