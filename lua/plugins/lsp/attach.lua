@@ -8,12 +8,15 @@ return function(client, buffer)
 
     nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
     nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+    nmap("<leader>ch", vim.lsp.buf.hover, "[C]ode [H]over")
+
+    nmap("]d", vim.diagnostic.goto_next, "Next [D]iagnostic")
+    nmap("[d", vim.diagnostic.goto_prev, "Prev [D]iagnostic")
 
     local builtin = require("telescope.builtin")
     nmap("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
     nmap("gr", builtin.lsp_references, "[G]oto [R]eferences")
     nmap("gi", builtin.lsp_implementations, "[G]oto [I]mplementation")
-    nmap("<leader>td", builtin.lsp_type_definitions, "[T]ype [D]efinition")
+    nmap("td", builtin.lsp_type_definitions, "[T]ype [D]efinition")
     nmap("<leader>ds", builtin.lsp_document_symbols, "[D]ocument [S]ymbols")
-    nmap("<leader>ws", builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 end
