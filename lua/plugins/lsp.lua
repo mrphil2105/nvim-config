@@ -12,14 +12,18 @@ return {
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
         require("mason").setup {}
-        local mason_lspconfig = require("mason-lspconfig")
-        require("neodev").setup {}
+        require("neodev").setup {
+            library = {
+                plugins = { "nvim-dap-ui" },
+                types = true,
+            },
+        }
 
-        mason_lspconfig.setup {
+        require("mason-lspconfig").setup {
             ensure_installed = vim.tbl_keys(servers),
         }
 
-        mason_lspconfig.setup_handlers {
+        require("mason-lspconfig").setup_handlers {
             function(server_name)
                 require("lspconfig")[server_name].setup {
                     capabilities = capabilities,

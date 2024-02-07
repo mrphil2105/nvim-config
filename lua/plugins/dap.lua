@@ -1,11 +1,15 @@
 return {
     "mfussenegger/nvim-dap",
     dependencies = {
+        "rcarriga/nvim-dap-ui",
         "nvim-telescope/telescope-dap.nvim",
     },
     config = function()
         local dap = require("dap")
-        dap.defaults.fallback.terminal_win_cmd = "tabnew"
+        local dapui = require("dapui")
+        local dapui_config = require("plugins.dapui.config")
+
+        dapui.setup(dapui_config)
 
         local configs = { "nodejs" }
 
@@ -19,6 +23,7 @@ return {
         vim.keymap.set("n", "<leader>bs", dap.step_over, { desc = "Step Over" })
         vim.keymap.set("n", "<leader>bi", dap.step_into, { desc = "Step Into" })
         vim.keymap.set("n", "<leader>bo", dap.step_out, { desc = "Step Out" })
-        vim.keymap.set("n", "<leader>br", dap.repl.open, { desc = "Open Repl" })
+        vim.keymap.set("n", "<leader>br", function() dapui.float_element("repl") end, { desc = "Open Repl" })
+        vim.keymap.set("n", "<leader>bT", dapui.toggle, { desc = "Toggle DAP UI" })
     end,
 }
