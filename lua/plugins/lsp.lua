@@ -9,7 +9,9 @@ return {
     config = function()
         local servers = require("plugins.lsp.servers")
         local on_attach = require("plugins.lsp.attach")
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+        require("plugins.coq.config").setup()
+        local coq = require("coq")
 
         require("mason").setup {}
         require("neodev").setup {
@@ -25,12 +27,11 @@ return {
 
         require("mason-lspconfig").setup_handlers {
             function(server_name)
-                require("lspconfig")[server_name].setup {
-                    capabilities = capabilities,
+                require("lspconfig")[server_name].setup(coq.lsp_ensure_capabilities {
                     on_attach = on_attach,
                     settings = servers[server_name],
                     filetypes = (servers[server_name] or {}).filetypes,
-                }
+                })
             end,
         }
 
