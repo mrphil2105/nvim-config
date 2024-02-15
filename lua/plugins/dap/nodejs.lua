@@ -3,7 +3,7 @@ local M = {}
 local run_file = vim.fn.getcwd() .. "/run.toml"
 local prerequisite_file = vim.fn.getcwd() .. "/package.json"
 
-local function enabled() return vim.fn.filereadable(run_file) and vim.fn.filereadable(prerequisite_file) end
+local function enabled() return vim.fn.filereadable(run_file) == 1 and vim.fn.filereadable(prerequisite_file) == 1 end
 
 local function register_keymaps(dap, configs)
     vim.keymap.set("n", "<leader>bA", function()
@@ -52,7 +52,7 @@ local function configure_chrome(app, options, configs)
 end
 
 function M.setup()
-    if enabled() == 0 then return end
+    if not enabled() then return end
 
     local dap = require("dap")
     local toml = require("toml")
