@@ -11,7 +11,7 @@ return {
 
         dapui.setup(dapui_config)
 
-        local configs = { "nodejs" }
+        local configs = { "rust", "nodejs" }
 
         for _, config in ipairs(configs) do
             require("plugins.dap." .. config).setup()

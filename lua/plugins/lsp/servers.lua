@@ -10,6 +10,7 @@ return {
             },
         },
     },
+    rust_analyzer = {},
     tsserver = {},
     pylsp = {},
 }
