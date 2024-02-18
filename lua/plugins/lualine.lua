@@ -4,6 +4,9 @@ return {
         "nvim-tree/nvim-web-devicons",
     },
     opts = {
+        options = {
+            theme = "tokyonight",
+        },
         sections = {
             lualine_c = {
                 {
