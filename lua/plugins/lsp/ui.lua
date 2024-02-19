@@ -8,6 +8,7 @@ function M.setup()
         vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
 
     vim.diagnostic.config {
+        virtual_text = false,
         float = {
             border = "single",
         },
