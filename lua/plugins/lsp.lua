@@ -40,5 +40,7 @@ return {
                 border = "single",
             },
         }
+
+        require("plugins.lsp.ui").setup()
     end,
 }
