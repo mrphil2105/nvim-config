@@ -10,6 +10,9 @@ function M.setup()
             ghost_text = {
                 enabled = false,
             },
+            pum = {
+                fast_close = false,
+            },
         },
     }
 end
