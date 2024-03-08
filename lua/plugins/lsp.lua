@@ -10,7 +10,6 @@ return {
         local servers = require("plugins.lsp.servers")
         local on_attach = require("plugins.lsp.attach")
 
-        require("plugins.coq.config").setup()
         local coq = require("coq")
 
         require("mason").setup {}

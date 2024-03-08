@@ -7,4 +7,5 @@ return {
             branch = "artifacts",
         },
     },
+    init = function() require("plugins.coq.config").setup() end,
 }
