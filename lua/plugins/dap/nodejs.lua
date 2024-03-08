@@ -58,6 +58,7 @@ function M.setup()
     local toml = require("toml")
     local success, run_config = pcall(toml.decodeFromFile, run_file)
 
+    dap.defaults.fallback.terminal_win_cmd = "tabnew"
     local dap_types = { "pwa-node", "pwa-chrome" }
 
     for _, dap_type in ipairs(dap_types) do
