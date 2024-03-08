@@ -6,17 +6,33 @@ local prerequisite_file = vim.fn.getcwd() .. "/package.json"
 local function enabled() return vim.fn.filereadable(run_file) == 1 and vim.fn.filereadable(prerequisite_file) == 1 end
 
 local function register_keymaps(dap, configs)
+    local utils = require("utils")
+
     vim.keymap.set("n", "<leader>bA", function()
         for _, config in ipairs(configs) do
             dap.run(config, { new = true })
         end
     end, { desc = "Launch All" })
 
-    vim.keymap.set("n", "<leader>bR", function()
-        for _, config in ipairs(configs) do
-            dap.restart(config)
+    vim.keymap.set("n", "<leader>bS", function()
+        local sessions = dap.sessions()
+
+        for _, session in pairs(sessions) do
+            dap.set_session(session)
+            dap.disconnect()
+            dap.close()
         end
-    end, { desc = "Restart All" })
+
+        for _, config in ipairs(configs) do
+            for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+                local buffer_name = vim.api.nvim_buf_get_name(buffer)
+
+                if vim.api.nvim_buf_is_loaded(buffer) and utils.endswith(buffer_name, config.name) then
+                    vim.api.nvim_buf_delete(buffer, { force = true })
+                end
+            end
+        end
+    end, { desc = "Stop All" })
 end
 
 local function configure_node(app, options, configs)
