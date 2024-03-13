@@ -3,7 +3,10 @@ local M = {}
 local run_file = vim.fn.getcwd() .. "/run.toml"
 local prerequisite_file = vim.fn.getcwd() .. "/package.json"
 
-local function enabled() return vim.fn.filereadable(run_file) == 1 and vim.fn.filereadable(prerequisite_file) == 1 end
+function M.enabled()
+    local utils = require("utils")
+    return utils.file_exists(run_file) and utils.file_exists(prerequisite_file)
+end
 
 local function register_keymaps(dap, configs)
     local utils = require("utils")
@@ -68,13 +71,12 @@ local function configure_chrome(app, options, configs)
 end
 
 function M.setup()
-    if not enabled() then return end
+    if not M.enabled() then return end
 
     local dap = require("dap")
     local toml = require("toml")
     local success, run_config = pcall(toml.decodeFromFile, run_file)
 
-    dap.defaults.fallback.terminal_win_cmd = "tabnew"
     local dap_types = { "pwa-node", "pwa-chrome" }
 
     for _, dap_type in ipairs(dap_types) do
@@ -114,4 +116,67 @@ function M.setup()
     dap.configurations.typescriptreact = configs_chrome
 end
 
+function M.setup_dapui()
+    local dapui_config = {
+        controls = {
+            element = "repl",
+            enabled = true,
+            icons = {
+                disconnect = "",
+                pause = "",
+                play = "",
+                run_last = "",
+                step_back = "",
+                step_into = "",
+                step_out = "",
+                step_over = "",
+                terminate = "",
+            },
+        },
+        element_mappings = {},
+        expand_lines = true,
+        floating = {
+            border = "single",
+            mappings = {
+                close = { "q", "<Esc>" },
+            },
+        },
+        force_buffers = true,
+        icons = {
+            collapsed = "",
+            current_frame = "",
+            expanded = "",
+        },
+        layouts = {
+            {
+                elements = {
+                    {
+                        id = "scopes",
+                        size = 0.66,
+                    },
+                    {
+                        id = "breakpoints",
+                        size = 0.33,
+                    },
+                },
+                position = "left",
+                size = 40,
+            },
+        },
+        mappings = {
+            edit = "e",
+            expand = { "<CR>", "<2-LeftMouse>" },
+            open = "o",
+            remove = "d",
+            repl = "r",
+            toggle = "t",
+        },
+        render = {
+            indent = 1,
+            max_value_lines = 100,
+        },
+    }
+    require("dapui").setup(dapui_config)
+    require("dap").defaults.fallback.terminal_win_cmd = "tabnew"
+end
 return M

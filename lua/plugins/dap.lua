@@ -7,14 +7,23 @@ return {
     config = function()
         local dap = require("dap")
         local dapui = require("dapui")
-        local dapui_config = require("plugins.dapui.config")
-
-        dapui.setup(dapui_config)
 
         local configs = { "rust", "nodejs" }
 
         for _, config in ipairs(configs) do
-            require("plugins.dap." .. config).setup()
+            local dap_config = require("plugins.dap." .. config)
+            if dap_config.enabled() then
+                dap_config.setup()
+
+                if dap_config.setup_dapui ~= nil then
+                    dap_config.setup_dapui()
+                else
+                    local dapui_config = require("plugins.dapui.config")
+                    dapui.setup(dapui_config)
+                end
+
+                break
+            end
         end
 
         vim.keymap.set("n", "<leader>bt", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })

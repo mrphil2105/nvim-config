@@ -25,12 +25,19 @@ local function get_cargo_files()
     return cargo_files
 end
 
+function M.enabled()
+    local utils = require("utils")
+    local cargo_files = get_cargo_files()
+    return utils.table_length(cargo_files) > 0
+end
+
 local is_building = false
 
 local function register_build_keymap(cargo_files)
     local dap = require("dap")
     local utils = require("utils")
 
+    -- Schedule a callback because '<leader>bc' is configured in dap.lua after the current function completes.
     vim.schedule(function()
         vim.keymap.set("n", "<leader>bc", function()
             if is_building then return end
