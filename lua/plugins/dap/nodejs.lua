@@ -22,8 +22,7 @@ local function register_keymaps(dap, configs)
 
         for _, session in pairs(sessions) do
             dap.set_session(session)
-            dap.disconnect()
-            dap.close()
+            dap.terminate()
         end
 
         for _, config in ipairs(configs) do
