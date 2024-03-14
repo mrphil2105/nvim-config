@@ -8,16 +8,21 @@ function M.enabled()
     return utils.file_exists(run_file) and utils.file_exists(prerequisite_file)
 end
 
+local is_running = false
+
 local function register_keymaps(dap, configs)
     local utils = require("utils")
 
     vim.keymap.set("n", "<leader>bA", function()
+        if is_running then return end
         for _, config in ipairs(configs) do
             dap.run(config, { new = true })
         end
+        is_running = true
     end, { desc = "Launch All" })
 
     vim.keymap.set("n", "<leader>bS", function()
+        if not is_running then return end
         local sessions = dap.sessions()
 
         for _, session in pairs(sessions) do
@@ -34,6 +39,7 @@ local function register_keymaps(dap, configs)
                 end
             end
         end
+        is_running = false
     end, { desc = "Stop All" })
 end
 
