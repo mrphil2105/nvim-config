@@ -10,16 +10,22 @@ end
 
 local is_running = false
 
-local function register_keymaps(dap, configs)
+local function register_keymaps(dap, configs_node, configs_chrome)
     local utils = require("utils")
 
     vim.keymap.set("n", "<leader>bA", function()
         if is_running then return end
-        for _, config in ipairs(configs) do
+        for _, config in ipairs(configs_node) do
             dap.run(config, { new = true })
         end
         is_running = true
     end, { desc = "Launch All" })
+
+    vim.keymap.set("n", "<leader>bF", function()
+        for _, config in ipairs(configs_chrome) do
+            dap.run(config, { new = true })
+        end
+    end, { desc = "Launch Frontend" })
 
     vim.keymap.set("n", "<leader>bS", function()
         if not is_running then return end
@@ -30,7 +36,7 @@ local function register_keymaps(dap, configs)
             dap.terminate()
         end
 
-        for _, config in ipairs(configs) do
+        for _, config in ipairs(configs_node) do
             for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
                 local buffer_name = vim.api.nvim_buf_get_name(buffer)
 
@@ -116,7 +122,7 @@ function M.setup()
         end
     end
 
-    register_keymaps(dap, configs_node)
+    register_keymaps(dap, configs_node, configs_chrome)
     dap.configurations.typescript = configs_node
     dap.configurations.typescriptreact = configs_chrome
 end
