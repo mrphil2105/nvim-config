@@ -8,7 +8,7 @@ return {
         local dap = require("dap")
         local dapui = require("dapui")
 
-        local configs = { "rust", "nodejs" }
+        local configs = { "dotnet", "rust", "nodejs" }
 
         for _, config in ipairs(configs) do
             local dap_config = require("plugins.dap." .. config)
