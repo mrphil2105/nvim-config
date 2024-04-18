@@ -29,6 +29,7 @@ local is_building = false
 local function register_build_keymap(project_files)
     local dap = require("dap")
     local build = require("build")
+    local csproj = require("plugins.dap.dotnet.csproj")
 
     vim.keymap.set("n", "<leader>bC", function()
         if is_building then return end
@@ -38,8 +39,11 @@ local function register_build_keymap(project_files)
         local project_dirs = {}
 
         for _, project_file in ipairs(project_files) do
-            local project_dir = vim.fs.dirname(project_file)
-            table.insert(project_dirs, project_dir)
+            local project = csproj.parse(project_file)
+            if project ~= nil and project.is_executable then
+                local project_dir = vim.fs.dirname(project_file)
+                table.insert(project_dirs, project_dir)
+            end
         end
 
         local on_exit = function(idx, exit_code)
