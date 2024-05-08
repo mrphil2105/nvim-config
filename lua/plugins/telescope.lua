@@ -14,5 +14,6 @@ return {
         vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
         vim.keymap.set("n", "<leader>fs", builtin.search_history, {})
         vim.keymap.set("n", "<leader>fc", builtin.git_bcommits, {})
+        vim.keymap.set("n", "<leader>fr", builtin.resume, {})
     end,
 }
