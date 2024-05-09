@@ -98,6 +98,11 @@ function M.setup()
 
     register_build_keymap(exec_projects)
     dap.configurations.cs = configs
+
+    vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+        pattern = { "*.axaml" },
+        callback = function() vim.cmd.setfiletype("xml") end,
+    })
 end
 
 return M
