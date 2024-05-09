@@ -10,6 +10,21 @@ return {
         local servers = require("plugins.lsp.servers")
         local on_attach = require("plugins.lsp.attach")
 
+        local configs = require("lspconfig.configs")
+        local root_pattern = require("lspconfig.util").root_pattern
+        if not configs.avalonia then
+            configs.avalonia = {
+                default_config = {
+                    cmd = {
+                        "dotnet",
+                        "/home/mrphil2105/CSharp Projects/AvaloniaVSCode/src/AvaloniaLSP/AvaloniaLanguageServer/bin/Debug/net8.0/AvaloniaLanguageServer.dll",
+                    },
+                    root_dir = root_pattern("*.sln"),
+                    filetypes = { "axaml", "xml" },
+                },
+            }
+        end
+
         local coq = require("coq")
 
         require("mason").setup {}
@@ -33,6 +48,10 @@ return {
                 })
             end,
         }
+        require("lspconfig").avalonia.setup(coq.lsp_ensure_capabilities {
+            on_attach = on_attach,
+            settings = {},
+        })
 
         require("lsp_signature").setup {
             handler_opts = {
@@ -40,6 +59,7 @@ return {
             },
         }
 
+        vim.keymap.set("i", "<C-y>", vim.lsp.buf.completion)
         require("plugins.lsp.ui").setup()
     end,
 }

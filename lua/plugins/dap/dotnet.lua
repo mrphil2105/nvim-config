@@ -99,9 +99,21 @@ function M.setup()
     register_build_keymap(exec_projects)
     dap.configurations.cs = configs
 
+    local avalonia_lsp_bin = "/home/mrphil2105/avaloniaServer/AvaloniaLanguageServer.dll"
     vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
         pattern = { "*.axaml" },
-        callback = function() vim.cmd.setfiletype("xml") end,
+        callback = function()
+            vim.cmd.setfiletype("xml")
+            --vim.lsp.start {
+            --    name = "Avalonia LSP",
+            --    --cmd = { "dotnet", avalonia_lsp_bin },
+            --    cmd = {
+            --        "dotnet",
+            --        "/home/mrphil2105/CSharp Projects/AvaloniaVSCode/src/AvaloniaLSP/AvaloniaLanguageServer/bin/Debug/net8.0/AvaloniaLanguageServer.dll",
+            --    },
+            --    root_dir = vim.fn.getcwd() .. "/AvaloniaApp",
+            --}
+        end,
     })
 end
 

@@ -1,5 +1,10 @@
 return {
-    clangd = {},
+    clangd = {
+        cmd = {
+            "clangd",
+            "--offset-encoding=utf-16",
+        },
+    },
     lua_ls = {
         Lua = {
             workspace = {
@@ -13,4 +18,6 @@ return {
     rust_analyzer = {},
     tsserver = {},
     pylsp = {},
+    bufls = {},
+    avalonia = {},
 }
