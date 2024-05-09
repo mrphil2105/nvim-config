@@ -1,6 +1,8 @@
 local M = {}
 
 ---@class CSProject
+---@field dir string
+---@field name string
 ---@field is_executable boolean
 ---@field target_framework string
 ---@field assembly_name string
@@ -20,9 +22,12 @@ local function create_csproject(project_file, xml_document)
     if target_framework == nil then return "Missing TargetFramework element in PropertyGroup." end
     project.target_framework = target_framework:text()
 
+    project.dir = vim.fs.dirname(project_file)
+    project.name = vim.fs.basename(project_file):sub(1, -8)
+
     local assembly_name = property_group:search("AssemblyName")[1]
     if assembly_name == nil then
-        project.assembly_name = vim.fs.basename(project_file):sub(1, -8)
+        project.assembly_name = project.name
     else
         project.assembly_name = assembly_name:text()
     end

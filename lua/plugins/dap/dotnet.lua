@@ -1,35 +1,17 @@
 local M = {}
 
-local function get_project_files()
-    local utils = require("utils")
-    local project_files = {}
-    local cwd = vim.fn.getcwd()
-    local cwd_name = vim.fs.basename(cwd)
-    local project_file = utils.path_combine(cwd, cwd_name .. ".csproj")
+local utils = require("utils")
+local dap = require("dap")
 
-    if utils.file_exists(project_file) then table.insert(project_files, project_file) end
+local run_file = utils.path_combine(vim.fn.getcwd(), "/run.toml")
 
-    for path_name, type in vim.fs.dir(cwd) do
-        if type == "directory" then
-            project_file = utils.path_combine(cwd, path_name, path_name .. ".csproj")
-            if utils.file_exists(project_file) then table.insert(project_files, project_file) end
-        end
-    end
-
-    return project_files
-end
-
-function M.enabled()
-    local project_files = get_project_files()
-    return #project_files > 0
-end
+function M.enabled() return utils.file_exists(run_file) end
 
 local is_building = false
 
-local function register_build_keymap(project_files)
-    local dap = require("dap")
+---@param exec_projects CSProject[]
+local function register_build_keymap(exec_projects)
     local build = require("build")
-    local csproj = require("plugins.dap.dotnet.csproj")
 
     vim.keymap.set("n", "<leader>bC", function()
         if is_building then return end
@@ -38,17 +20,15 @@ local function register_build_keymap(project_files)
 
         local project_dirs = {}
 
-        for _, project_file in ipairs(project_files) do
-            local project = csproj.parse(project_file)
-            if project ~= nil and project.is_executable then
-                local project_dir = vim.fs.dirname(project_file)
-                table.insert(project_dirs, project_dir)
-            end
+        for _, project in ipairs(exec_projects) do
+            table.insert(project_dirs, project.dir)
         end
 
         local on_exit = function(idx, exit_code)
-            local name = vim.fs.basename(project_dirs[idx])
-            if exit_code ~= 0 then vim.notify(name .. " build failed: " .. exit_code) end
+            if exit_code ~= 0 then
+                local name = exec_projects[idx].name
+                vim.notify(name .. " build failed: " .. exit_code)
+            end
         end
         local on_completed = function(success, finished)
             if success == finished then
@@ -71,10 +51,15 @@ end
 function M.setup()
     if not M.enabled() then return end
 
-    local project_files = get_project_files()
-    local utils = require("utils")
-    local dap = require("dap")
+    local toml = require("toml")
     local csproj = require("plugins.dap.dotnet.csproj")
+
+    local success, run_config = pcall(toml.decodeFromFile, run_file)
+
+    if not success then
+        vim.api.nvim_err_writeln(".NET DAP Failure: " .. vim.inspect(run_config))
+        return
+    end
 
     dap.adapters.coreclr = {
         type = "executable",
@@ -82,38 +67,36 @@ function M.setup()
         args = { "--interpreter=vscode" },
     }
 
+    local exec_projects = {}
     local configs = {}
 
-    for _, project_file in ipairs(project_files) do
-        local project = csproj.parse(project_file)
-        local project_name = vim.fs.basename(project_file):sub(1, -8)
+    for app, options in pairs(run_config) do
+        local project = csproj.parse(options.project)
 
         if project == nil then
-            vim.api.nvim_err_writeln("Failed to parse .NET project " .. project_name)
+            vim.api.nvim_err_writeln("Failed to parse .NET project for application " .. app)
         elseif type(project) == "string" then
-            vim.api.nvim_err_writeln("Failed to parse .NET project " .. project_name .. ": " .. project)
+            vim.api.nvim_err_writeln("Failed to parse .NET project for application " .. app .. ": " .. project)
         elseif project.is_executable then
-            local working_dir = vim.fs.dirname(project_file)
-            local executable = utils.path_combine(
-                working_dir,
-                "bin",
-                "Debug",
-                project.target_framework,
-                project.assembly_name .. ".dll"
-            )
+            local executable =
+                utils.path_combine("bin", "Debug", project.target_framework, project.assembly_name .. ".dll")
 
             local config = {
                 type = "coreclr",
                 request = "launch",
-                name = project_name,
-                cwd = working_dir,
+                name = app,
+                cwd = project.dir,
                 program = executable,
+                args = options.args,
+                env = options.env,
             }
+
+            table.insert(exec_projects, project)
             table.insert(configs, config)
         end
     end
 
-    register_build_keymap(project_files)
+    register_build_keymap(exec_projects)
     dap.configurations.cs = configs
 end
 
