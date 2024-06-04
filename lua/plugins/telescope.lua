@@ -3,9 +3,18 @@ return {
     branch = "0.1.x",
     dependencies = {
         "nvim-lua/plenary.nvim",
+        "folke/trouble.nvim",
     },
     config = function()
-        require("telescope").setup {}
+        local open_with_trouble = require("trouble.sources.telescope").open
+        require("telescope").setup {
+            defaults = {
+                mappings = {
+                    i = { ["<C-t>"] = open_with_trouble },
+                    n = { ["<C-t>"] = open_with_trouble },
+                },
+            },
+        }
 
         local builtin = require("telescope.builtin")
         vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
