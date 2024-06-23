@@ -1,3 +1,5 @@
+local function is_axaml_file(filename) return filename:match("^.+(%..+)$") == ".axaml" end
+
 return {
     "stevearc/conform.nvim",
     config = function()
@@ -9,6 +11,21 @@ return {
                 typescript = { "prettierd" },
                 typescriptreact = { "prettierd" },
                 cs = { "csharpier" },
+                xml = { "xstyler", "remove_bom" },
+            },
+            formatters = {
+                xstyler = {
+                    command = "xstyler",
+                    args = { "--loglevel", "None", "--file", "$FILENAME" },
+                    stdin = false,
+                    condition = function(_, ctx) return is_axaml_file(ctx.filename) end,
+                },
+                remove_bom = {
+                    command = "dos2unix",
+                    args = { "$FILENAME" },
+                    stdin = false,
+                    condition = function(_, ctx) return is_axaml_file(ctx.filename) end,
+                },
             },
         }
 
