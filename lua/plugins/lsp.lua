@@ -41,5 +41,6 @@ return {
         }
 
         require("plugins.lsp.ui").setup()
+        require("plugins.lsp.avalonia").setup(capabilities, on_attach)
     end,
 }

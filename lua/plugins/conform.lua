@@ -1,9 +1,9 @@
-local function is_axaml_file(filename) return filename:match("^.+(%..+)$") == ".axaml" end
-
 return {
     "stevearc/conform.nvim",
     config = function()
+        local utils = require("utils")
         local conform = require("conform")
+
         conform.setup {
             formatters_by_ft = {
                 lua = { "stylua" },
@@ -18,13 +18,13 @@ return {
                     command = "xstyler",
                     args = { "--loglevel", "None", "--file", "$FILENAME" },
                     stdin = false,
-                    condition = function(_, ctx) return is_axaml_file(ctx.filename) end,
+                    condition = function(_, ctx) return utils.has_file_extension(ctx.filename, ".axaml") end,
                 },
                 remove_bom = {
                     command = "dos2unix",
                     args = { "$FILENAME" },
                     stdin = false,
-                    condition = function(_, ctx) return is_axaml_file(ctx.filename) end,
+                    condition = function(_, ctx) return utils.has_file_extension(ctx.filename, ".axaml") end,
                 },
             },
         }
