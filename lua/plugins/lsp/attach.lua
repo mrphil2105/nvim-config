@@ -14,9 +14,17 @@ return function(client, buffer)
     nmap("[d", vim.diagnostic.goto_prev, "Prev [D]iagnostic")
 
     local builtin = require("telescope.builtin")
-    nmap("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
-    nmap("gr", builtin.lsp_references, "[G]oto [R]eferences")
-    nmap("gi", builtin.lsp_implementations, "[G]oto [I]mplementation")
-    nmap("td", builtin.lsp_type_definitions, "[T]ype [D]efinition")
+    if client.name == "omnisharp" then
+        local omnisharp_extended = require("omnisharp_extended")
+        nmap("gd", omnisharp_extended.telescope_lsp_definition, "[G]oto [D]efinition")
+        nmap("gr", omnisharp_extended.telescope_lsp_references, "[G]oto [R]eferences")
+        nmap("gi", omnisharp_extended.telescope_lsp_implementation, "[G]oto [I]mplementation")
+        nmap("td", omnisharp_extended.telescope_lsp_type_definition, "[T]ype [D]efinition")
+    else
+        nmap("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
+        nmap("gr", builtin.lsp_references, "[G]oto [R]eferences")
+        nmap("gi", builtin.lsp_implementations, "[G]oto [I]mplementation")
+        nmap("td", builtin.lsp_type_definitions, "[T]ype [D]efinition")
+    end
     nmap("<leader>ds", builtin.lsp_document_symbols, "[D]ocument [S]ymbols")
 end
