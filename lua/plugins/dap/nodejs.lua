@@ -190,4 +190,5 @@ function M.setup_dapui()
     require("dapui").setup(dapui_config)
     require("dap").defaults.fallback.terminal_win_cmd = "tabnew"
 end
+
 return M
