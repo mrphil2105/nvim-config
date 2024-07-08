@@ -31,6 +31,8 @@ return {
             }, {
                 { name = "buffer" },
                 { name = "path" },
+            }, {
+                { name = "copilot" },
             }),
         }
     end,
