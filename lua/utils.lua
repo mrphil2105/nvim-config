@@ -36,4 +36,11 @@ function M.path_combine(...)
     return path
 end
 
+function M.is_buf_empty(buf)
+    local line_count = vim.api.nvim_buf_line_count(buf)
+    if line_count > 1 then return false end
+    local lines = vim.api.nvim_buf_get_lines(buf, 0, 1, false)
+    return lines[1] == ""
+end
+
 return M
