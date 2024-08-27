@@ -2,8 +2,6 @@ vim.opt.number = true -- Line numbers
 vim.opt.relativenumber = true -- Relative line numbers
 vim.opt.scrolloff = 5 -- Lines above and below cursor
 
-vim.o.hlsearch = false -- Highlight on search
-
 vim.o.expandtab = true -- Spaces for indentation
 vim.o.smartindent = true -- Automatic identation
 vim.o.tabstop = 4 -- Four space tab
