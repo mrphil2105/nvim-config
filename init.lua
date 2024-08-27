@@ -21,3 +21,5 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
 require("options")
+
+vim.keymap.set("n", "<leader>/", "<Cmd>noh<CR>")
