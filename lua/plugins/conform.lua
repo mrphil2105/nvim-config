@@ -11,6 +11,7 @@ return {
                 typescript = { "prettierd" },
                 typescriptreact = { "prettierd" },
                 cs = { "csharpier" },
+                java = { "clang-format" },
                 xml = { "xstyler", "remove_bom" },
             },
             formatters = {
