@@ -11,6 +11,6 @@ return {
         },
     },
     rust_analyzer = {},
-    tsserver = {},
     pylsp = {},
+    ts_ls = {},
 }
