@@ -19,6 +19,7 @@ return {
                 "c_sharp",
                 "java",
                 "kotlin",
+                "scala",
                 "python",
                 "go",
                 "proto",
