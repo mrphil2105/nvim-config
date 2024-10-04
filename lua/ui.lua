@@ -33,4 +33,37 @@ function M.scroll_bottom(win)
     api.nvim_win_set_cursor(win, { line_count, 0 })
 end
 
+---Opens a select menu to pick one of the specified items. Must be run inside a coroutine if no callback is specified.
+---@param items any[] The items to select from.
+---@param prompt string The caption to display for the prompt.
+---@param label_item fun(item: any): string The function to retrieve labels for items.
+---@return any item The selected item or nil if none, only if no callback is specified.
+function M.select_one(items, prompt, label_item, on_choice)
+    local co
+    if not on_choice then
+        co = coroutine.running()
+        if not co then error("A function for on_choice must be provided when not running in a coroutine.") end
+        on_choice = function(item) coroutine.resume(co, item) end
+    end
+    on_choice = vim.schedule_wrap(on_choice)
+    vim.ui.select(items, { prompt = prompt, format_item = label_item }, on_choice)
+    if co then return coroutine.yield() end
+end
+
+---Opens a select menu to pick one of the specified items, or returns the only item if the list has length of one. Must
+---be run inside a coroutine if no callback is specified.
+---@param items any[] The items to select from.
+---@param prompt string The caption to display for the prompt.
+---@param label_item fun(item: any): string The function to retrieve labels for items.
+---@return any item The selected item or nil if none, only if no callback is specified.
+function M.select_if_many(items, prompt, label_item, on_choice)
+    if #items == 0 then return nil end
+    if #items == 1 then
+        if not on_choice then return items[1] end
+        on_choice(items[1])
+        return
+    end
+    return M.select_one(items, prompt, label_item, on_choice)
+end
+
 return M
