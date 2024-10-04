@@ -7,9 +7,12 @@ return {
         "folke/neodev.nvim",
     },
     config = function()
+        local lspconfig = require("lspconfig")
+        local configs = require("lspconfig.configs")
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
         local servers = require("plugins.lsp.servers")
         local on_attach = require("plugins.lsp.attach")
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
         require("mason").setup {}
         require("neodev").setup {
@@ -25,13 +28,29 @@ return {
 
         require("mason-lspconfig").setup_handlers {
             function(server_name)
-                require("lspconfig")[server_name].setup {
+                lspconfig[server_name].setup {
                     capabilities = capabilities,
                     on_attach = on_attach,
                     settings = servers[server_name],
                     filetypes = (servers[server_name] or {}).filetypes,
                 }
             end,
+        }
+
+        if not configs.metals then
+            configs.metals = {
+                default_config = {
+                    cmd = { "metals" },
+                    filetypes = { "scala" },
+                    root_dir = lspconfig.util.root_pattern("project.scala"),
+                    settings = {},
+                },
+            }
+        end
+
+        lspconfig.metals.setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
         }
 
         require("lsp_signature").setup {
