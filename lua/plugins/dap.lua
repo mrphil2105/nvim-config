@@ -7,6 +7,7 @@ return {
     config = function()
         local dap = require("dap")
         local dapui = require("dapui")
+        local dap_utils = require("plugins.dap.utils")
 
         local configs = { "dotnet", "rust", "nodejs" }
 
@@ -34,5 +35,29 @@ return {
         vim.keymap.set("n", "<leader>bo", dap.step_out, { desc = "Step Out" })
         vim.keymap.set("n", "<leader>br", function() dapui.float_element("repl") end, { desc = "Open Repl" })
         vim.keymap.set("n", "<leader>bT", dapui.toggle, { desc = "Toggle DAP UI" })
+
+        vim.keymap.set("n", "<leader>ba", function()
+            coroutine.wrap(function()
+                local session = dap_utils.select_session()
+                if session == nil then
+                    vim.notify("No session selected.")
+                    return
+                end
+                vim.notify("Setting session to: " .. session.config.name)
+                dap.set_session(session)
+            end)()
+        end, { desc = "Set Active Session" })
+
+        vim.keymap.set("n", "<leader>bR", function()
+            coroutine.wrap(function()
+                local session = dap_utils.select_session()
+                if session == nil then
+                    vim.notify("No session selected.")
+                    return
+                end
+                vim.notify("Restarting session: " .. session.config.name)
+                dap.restart(session.config)
+            end)()
+        end, { desc = "Restart Session" })
     end,
 }
