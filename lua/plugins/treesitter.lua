@@ -29,6 +29,7 @@ return {
                 "javascript",
                 "typescript",
                 "tsx",
+                "graphql",
                 "json",
                 "yaml",
                 "toml",
