@@ -23,6 +23,7 @@ return {
                 "python",
                 "go",
                 "proto",
+                "erlang",
                 "html",
                 "css",
                 "scss",
