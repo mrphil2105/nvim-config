@@ -28,12 +28,17 @@ return {
 
         require("mason-lspconfig").setup_handlers {
             function(server_name)
-                lspconfig[server_name].setup {
+                local config = {
                     capabilities = capabilities,
                     on_attach = on_attach,
                     settings = servers[server_name],
                     filetypes = (servers[server_name] or {}).filetypes,
                 }
+                if server_name == "ts_ls" then
+                    require("typescript-tools").setup(config)
+                else
+                    lspconfig[server_name].setup(config)
+                end
             end,
         }
 
