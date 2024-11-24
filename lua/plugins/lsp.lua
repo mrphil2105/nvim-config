@@ -9,7 +9,6 @@ return {
     config = function()
         local lspconfig = require("lspconfig")
         local configs = require("lspconfig.configs")
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
         local servers = require("plugins.lsp.servers")
         local on_attach = require("plugins.lsp.attach")
@@ -25,6 +24,9 @@ return {
         require("mason-lspconfig").setup {
             ensure_installed = vim.tbl_keys(servers),
         }
+
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
         require("mason-lspconfig").setup_handlers {
             function(server_name)
