@@ -4,7 +4,6 @@ return {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "ray-x/lsp_signature.nvim",
-        "folke/neodev.nvim",
     },
     config = function()
         local lspconfig = require("lspconfig")
@@ -14,12 +13,6 @@ return {
         local on_attach = require("plugins.lsp.attach")
 
         require("mason").setup {}
-        require("neodev").setup {
-            library = {
-                plugins = { "nvim-dap-ui" },
-                types = true,
-            },
-        }
 
         require("mason-lspconfig").setup {
             ensure_installed = vim.tbl_keys(servers),
