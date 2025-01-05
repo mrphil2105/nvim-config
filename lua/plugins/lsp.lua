@@ -7,7 +7,6 @@ return {
     },
     config = function()
         local lspconfig = require("lspconfig")
-        local configs = require("lspconfig.configs")
 
         local servers = require("plugins.lsp.servers")
         local on_attach = require("plugins.lsp.attach")
@@ -35,22 +34,6 @@ return {
                     lspconfig[server_name].setup(config)
                 end
             end,
-        }
-
-        if not configs.metals then
-            configs.metals = {
-                default_config = {
-                    cmd = { "metals" },
-                    filetypes = { "scala" },
-                    root_dir = lspconfig.util.root_pattern("project.scala"),
-                    settings = {},
-                },
-            }
-        end
-
-        lspconfig.metals.setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
         }
 
         require("lsp_signature").setup {
