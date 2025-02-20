@@ -6,13 +6,8 @@ return {
         "ray-x/lsp_signature.nvim",
     },
     config = function()
-        local lspconfig = require("lspconfig")
-
         local servers = require("plugins.lsp.servers")
-        local on_attach = require("plugins.lsp.attach")
-
         require("mason").setup {}
-
         require("mason-lspconfig").setup {
             ensure_installed = vim.tbl_keys(servers),
         }
@@ -24,14 +19,13 @@ return {
             function(server_name)
                 local config = {
                     capabilities = capabilities,
-                    on_attach = on_attach,
                     settings = servers[server_name],
                     filetypes = (servers[server_name] or {}).filetypes,
                 }
                 if server_name == "ts_ls" then
                     require("typescript-tools").setup(config)
                 else
-                    lspconfig[server_name].setup(config)
+                    require("lspconfig")[server_name].setup(config)
                 end
             end,
         }
@@ -43,6 +37,7 @@ return {
         }
 
         require("plugins.lsp.ui").setup()
-        require("plugins.lsp.avalonia").setup(capabilities, on_attach)
+        require("plugins.lsp.avalonia").setup(capabilities)
+        require("plugins.lsp.attach").setup()
     end,
 }

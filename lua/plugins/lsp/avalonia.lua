@@ -9,7 +9,7 @@ local function axaml_root_dir(filename)
     return root_pattern("*.sln")(filename)
 end
 
-function M.setup(capabilities, on_attach)
+function M.setup(capabilities)
     local configs = require("lspconfig.configs")
 
     if not configs.avalonia then
@@ -32,7 +32,6 @@ function M.setup(capabilities, on_attach)
 
     require("lspconfig").avalonia.setup {
         capabilities = capabilities,
-        on_attach = on_attach,
     }
 
     vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
