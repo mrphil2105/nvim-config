@@ -38,7 +38,7 @@ function M.path_combine(...)
     return path
 end
 
----@param buf buffer The buffer to check.
+---@param buf integer The buffer to check.
 function M.is_buf_empty(buf)
     local line_count = api.nvim_buf_line_count(buf)
     if line_count > 1 then return false end
@@ -46,7 +46,7 @@ function M.is_buf_empty(buf)
     return lines[1] == ""
 end
 
----@param buf buffer The buffer to append to.
+---@param buf integer The buffer to append to.
 ---@param line string The line to append.
 ---@param overwrite_modifiable? boolean Whether to set modifiable to true before appending and restore it again after.
 function M.buf_append_line(buf, line, overwrite_modifiable)

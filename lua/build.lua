@@ -12,8 +12,8 @@ local M = {}
 ---@field on_completed? function A callback function for when all builds have completed.
 
 ---@param name string The name of the log buffer to create/retrieve.
----@return buffer buf A buffer id of the created buffer.
----@return window win A window id of the created window.
+---@return integer buf A buffer id of the created buffer.
+---@return integer win A window id of the created window.
 local function get_log_buf(name)
     local utils = require("utils")
 

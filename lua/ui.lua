@@ -4,7 +4,7 @@ local M = {}
 
 ---@class OpenWinOptions
 ---@field title string The title to display.
----@field buf buffer The buffer to open a window for.
+---@field buf integer The buffer to open a window for.
 ---@field width integer The width of the window.
 ---@field height integer The height of the window.
 ---@field row integer The row position of the window.
@@ -26,7 +26,7 @@ function M.open_win(opts)
     return win
 end
 
----@param win window The window to scroll to the bottom.
+---@param win integer The window to scroll to the bottom.
 function M.scroll_bottom(win)
     local buf = api.nvim_win_get_buf(win)
     local line_count = api.nvim_buf_line_count(buf)
