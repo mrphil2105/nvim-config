@@ -3,17 +3,17 @@ local M = {}
 ---@class BuildProjectOptions
 ---@field project_dir string The directory containing the project to build.
 ---@field command string The command to run to build the specified project.
----@field on_exit? function A callback function for when the build has completed.
+---@field on_exit? fun(exit_code: integer) A callback function for when the build has completed. The first parameter is the exit code of the build process.
 
 ---@class BuildProjectsOptions
 ---@field project_dirs string[] The directories containing the projects to build.
 ---@field command string The command to run to build the specified projects.
----@field on_exit? function A callback function for when a build has completed. The first parameter is the project index.
----@field on_completed? function A callback function for when all builds have completed.
+---@field on_exit? fun(idx: integer, exit_code: integer) A callback function for when a build has completed. The first parameter is the index of the project that was built, and the second parameter is the exit code of the build process.
+---@field on_completed? fun(success: integer, finished: integer) A callback function for when all builds have completed. The first parameter is the number of successful builds, and the second parameter is the number of finished builds.
 
----@param name string The name of the log buffer to create/retrieve.
----@return integer buf A buffer id of the created buffer.
----@return integer win A window id of the created window.
+---@param name string The name of the log buffer to create.
+---@return integer buf The created buffer.
+---@return integer win The created window or the existing window.
 local function get_log_buf(name)
     local utils = require("utils")
 
@@ -43,7 +43,7 @@ local function get_log_buf(name)
     return buf, current_win
 end
 
----@param opts BuildProjectOptions The build options.
+---@param opts BuildProjectOptions The build options for the project.
 function M.build_project(opts)
     local name = vim.fs.basename(opts.project_dir)
     local buf, win = get_log_buf(name)
@@ -77,7 +77,7 @@ function M.build_project(opts)
     job_id = vim.fn.jobstart({ cmd, args }, job_opts)
 end
 
----@param opts BuildProjectsOptions The build options.
+---@param opts BuildProjectsOptions The build options for the projects.
 function M.build_projects(opts)
     local success = 0
     local finished = 0
