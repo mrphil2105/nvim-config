@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 local M = {}
 
 ---@class BuildProjectOptions
@@ -14,16 +16,12 @@ local M = {}
 ---@param name string The name of the log buffer to create.
 ---@return integer buf The created buffer.
 ---@return integer win The created window or the existing window.
-local function get_log_buf(name)
-    local utils = require("utils")
-
+local function create_log_buf(name)
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
         local buf_name = vim.api.nvim_buf_get_name(buf)
-
         if vim.api.nvim_buf_is_loaded(buf) and utils.endswith(buf_name, name) then
             for _, win in ipairs(vim.api.nvim_list_wins()) do
                 local win_buf = vim.api.nvim_win_get_buf(win)
-
                 if win_buf == buf then
                     local new_buf = vim.api.nvim_create_buf(true, true)
                     vim.api.nvim_win_set_buf(win, new_buf)
@@ -34,19 +32,19 @@ local function get_log_buf(name)
             end
         end
     end
-
     local current_win = vim.api.nvim_get_current_win()
     vim.api.nvim_command("tabnew")
     local buf = vim.api.nvim_get_current_buf()
+    local buf_win = vim.api.nvim_get_current_win()
     vim.api.nvim_buf_set_name(buf, name)
     vim.api.nvim_set_current_win(current_win)
-    return buf, current_win
+    return buf, buf_win
 end
 
 ---@param opts BuildProjectOptions The build options for the project.
 function M.build_project(opts)
     local name = vim.fs.basename(opts.project_dir)
-    local buf, win = get_log_buf(name)
+    local buf, win = create_log_buf(name)
     local job_id
     local chan = vim.api.nvim_open_term(buf, {
         on_input = function(_, _, _, data) pcall(vim.api.nvim_chan_send, job_id, data) end,
@@ -81,7 +79,6 @@ end
 function M.build_projects(opts)
     local success = 0
     local finished = 0
-
     for idx, project_dir in ipairs(opts.project_dirs) do
         local on_exit = function(exit_code)
             finished = finished + 1
