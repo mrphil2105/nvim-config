@@ -8,6 +8,7 @@ return {
         local dap = require("dap")
         local dapui = require("dapui")
         local dap_utils = require("plugins.dap.utils")
+        local repl = require("plugins.dap.ui.repl")
 
         local configs = { "dotnet", "rust", "nodejs" }
 
@@ -33,7 +34,7 @@ return {
         vim.keymap.set("n", "<leader>bs", dap.step_over, { desc = "Step Over" })
         vim.keymap.set("n", "<leader>bi", dap.step_into, { desc = "Step Into" })
         vim.keymap.set("n", "<leader>bo", dap.step_out, { desc = "Step Out" })
-        vim.keymap.set("n", "<leader>br", function() dapui.float_element("repl") end, { desc = "Open Repl" })
+        vim.keymap.set("n", "<leader>br", repl.show_popup, { desc = "Open Repl" })
         vim.keymap.set("n", "<leader>bT", dapui.toggle, { desc = "Toggle DAP UI" })
 
         vim.keymap.set("n", "<leader>ba", function()
