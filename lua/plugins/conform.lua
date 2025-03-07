@@ -12,6 +12,7 @@ return {
                 typescriptreact = { "prettierd" },
                 cs = { "csharpier" },
                 java = { "clang-format" },
+                rust = { "rustfmt" },
                 xml = { "xstyler", "remove_bom" },
             },
             formatters = {
