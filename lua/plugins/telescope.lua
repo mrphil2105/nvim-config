@@ -9,6 +9,7 @@ return {
         local open_with_trouble = require("trouble.sources.telescope").open
         require("telescope").setup {
             defaults = {
+                file_ignore_patterns = { "%__virtual.cs$" },
                 mappings = {
                     i = { ["<C-t>"] = open_with_trouble },
                     n = { ["<C-t>"] = open_with_trouble },
