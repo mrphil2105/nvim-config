@@ -57,7 +57,9 @@ return {
                     return
                 end
                 vim.notify("Restarting session: " .. session.config.name)
-                dap.restart(session.config)
+                dap.set_session(session)
+                dap.terminate()
+                vim.defer_fn(function() dap.run(session.config, { new = true }) end, 500)
             end)()
         end, { desc = "Restart Session" })
     end,
