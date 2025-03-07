@@ -27,9 +27,11 @@ local function register_build_keymap(exec_projects)
         is_building = true
         vim.notify("Building .NET projects...")
 
+        local project_names = {}
         local project_dirs = {}
 
         for _, project in ipairs(exec_projects) do
+            table.insert(project_names, project.name)
             table.insert(project_dirs, project.dir)
         end
 
@@ -48,6 +50,7 @@ local function register_build_keymap(exec_projects)
         end
 
         local opts = {
+            project_names = project_names,
             project_dirs = project_dirs,
             command = "dotnet build",
             on_exit = on_exit,

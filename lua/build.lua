@@ -3,11 +3,13 @@ local utils = require("utils")
 local M = {}
 
 ---@class BuildProjectOptions
+---@field project_name string The name of the project to build.
 ---@field project_dir string The directory containing the project to build.
 ---@field command string The command to run to build the specified project.
 ---@field on_exit? fun(exit_code: integer) A callback function for when the build has completed. The first parameter is the exit code of the build process.
 
 ---@class BuildProjectsOptions
+---@field project_names string[] The names of the projects to build.
 ---@field project_dirs string[] The directories containing the projects to build.
 ---@field command string The command to run to build the specified projects.
 ---@field on_exit? fun(idx: integer, exit_code: integer) A callback function for when a build has completed. The first parameter is the index of the project that was built, and the second parameter is the exit code of the build process.
@@ -43,8 +45,7 @@ end
 
 ---@param opts BuildProjectOptions The build options for the project.
 function M.build_project(opts)
-    local name = vim.fs.basename(opts.project_dir)
-    local buf, win = create_log_buf(name)
+    local buf, win = create_log_buf(opts.project_name)
     local job_id
     local chan = vim.api.nvim_open_term(buf, {
         on_input = function(_, _, _, data) pcall(vim.api.nvim_chan_send, job_id, data) end,
@@ -87,6 +88,7 @@ function M.build_projects(opts)
             if finished == #opts.project_dirs and opts.on_completed ~= nil then opts.on_completed(success, finished) end
         end
         local build_opts = {
+            project_name = opts.project_names[idx],
             project_dir = project_dir,
             command = opts.command,
             on_exit = on_exit,
