@@ -6,10 +6,14 @@ function M.setup()
             local client = vim.lsp.get_client_by_id(args.data.client_id)
             local buffer = args.buf
 
-            if client == nil then return end
+            if client == nil then
+                return
+            end
 
             local nmap = function(keys, func, desc)
-                if desc then desc = "LSP: " .. desc end
+                if desc then
+                    desc = "LSP: " .. desc
+                end
 
                 vim.keymap.set("n", keys, func, { buffer = buffer, desc = desc })
             end

@@ -14,7 +14,9 @@ local function register_keymaps(dap, configs_node, configs_chrome)
     local utils = require("utils")
 
     vim.keymap.set("n", "<leader>bA", function()
-        if is_running then return end
+        if is_running then
+            return
+        end
         for _, config in ipairs(configs_node) do
             dap.run(config, { new = true })
         end
@@ -28,7 +30,9 @@ local function register_keymaps(dap, configs_node, configs_chrome)
     end, { desc = "Launch Frontend" })
 
     vim.keymap.set("n", "<leader>bS", function()
-        if not is_running then return end
+        if not is_running then
+            return
+        end
         local sessions = dap.sessions()
 
         for _, session in pairs(sessions) do
@@ -82,7 +86,9 @@ local function configure_chrome(app, options, configs)
 end
 
 function M.setup()
-    if not M.enabled() then return end
+    if not M.enabled() then
+        return
+    end
 
     local dap = require("dap")
     local toml = require("toml")

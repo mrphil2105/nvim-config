@@ -10,9 +10,13 @@ function M.table_length(tab)
     return count
 end
 
-function M.endswith(str, suf) return string.sub(str, -#suf) == suf end
+function M.endswith(str, suf)
+    return string.sub(str, -#suf) == suf
+end
 
-function M.file_exists(path) return vim.fn.filereadable(path) == 1 end
+function M.file_exists(path)
+    return vim.fn.filereadable(path) == 1
+end
 
 ---@param filename string The file name or path to check.
 ---@param extension string The file extension to check for.
@@ -30,10 +34,14 @@ function M.path_combine(...)
     local path = ""
     for i = 1, len do
         local part = parts[i]
-        if i ~= 1 and part:sub(1, 1) == "/" then part = part:sub(2) end
+        if i ~= 1 and part:sub(1, 1) == "/" then
+            part = part:sub(2)
+        end
 
         path = path .. part
-        if i ~= len and path:sub(-1) ~= "/" then path = path .. "/" end
+        if i ~= len and path:sub(-1) ~= "/" then
+            path = path .. "/"
+        end
     end
     return path
 end
@@ -41,7 +49,9 @@ end
 ---@param buf integer The buffer to check.
 function M.is_buf_empty(buf)
     local line_count = api.nvim_buf_line_count(buf)
-    if line_count > 1 then return false end
+    if line_count > 1 then
+        return false
+    end
     local lines = api.nvim_buf_get_lines(buf, 0, 1, false)
     return lines[1] == ""
 end
@@ -64,7 +74,9 @@ function M.buf_append_line(buf, line, overwrite_modifiable)
         api.nvim_buf_set_lines(buf, line_count, line_count, false, { line })
     end
 
-    if overwrite_modifiable then api.nvim_set_option_value("modifiable", old_modifiable, { buf = buf }) end
+    if overwrite_modifiable then
+        api.nvim_set_option_value("modifiable", old_modifiable, { buf = buf })
+    end
 end
 
 return M

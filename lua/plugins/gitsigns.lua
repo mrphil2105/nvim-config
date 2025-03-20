@@ -13,14 +13,22 @@ return {
 
                 -- Navigation
                 nmap("]c", function()
-                    if vim.wo.diff then return "]c" end
-                    vim.schedule(function() gs.next_hunk() end)
+                    if vim.wo.diff then
+                        return "]c"
+                    end
+                    vim.schedule(function()
+                        gs.next_hunk()
+                    end)
                     return "<Ignore>"
                 end, { expr = true })
 
                 nmap("[c", function()
-                    if vim.wo.diff then return "[c" end
-                    vim.schedule(function() gs.prev_hunk() end)
+                    if vim.wo.diff then
+                        return "[c"
+                    end
+                    vim.schedule(function()
+                        gs.prev_hunk()
+                    end)
                     return "<Ignore>"
                 end, { expr = true })
 
@@ -31,10 +39,14 @@ return {
                 nmap("<leader>hu", gs.undo_stage_hunk)
                 nmap("<leader>hR", gs.reset_buffer)
                 nmap("<leader>hp", gs.preview_hunk)
-                nmap("<leader>hb", function() gs.blame_line { full = true } end)
+                nmap("<leader>hb", function()
+                    gs.blame_line { full = true }
+                end)
                 nmap("<leader>tb", gs.toggle_current_line_blame)
                 nmap("<leader>hd", gs.diffthis)
-                nmap("<leader>hD", function() gs.diffthis("~") end)
+                nmap("<leader>hD", function()
+                    gs.diffthis("~")
+                end)
                 nmap("<leader>td", gs.toggle_deleted)
             end,
         }

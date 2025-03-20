@@ -11,7 +11,9 @@ local function get_cargo_files()
 
     local cargo_file = cwd .. "/" .. cargo_file_name
 
-    if utils.file_exists(cargo_file) then table.insert(cargo_files, cargo_file) end
+    if utils.file_exists(cargo_file) then
+        table.insert(cargo_files, cargo_file)
+    end
 
     for _, path in ipairs(cwd_content) do
         cargo_file = path .. "/" .. cargo_file_name
@@ -40,7 +42,9 @@ local function register_build_keymap(cargo_files)
     -- Schedule a callback because '<leader>bc' is configured in dap.lua after the current function completes.
     vim.schedule(function()
         vim.keymap.set("n", "<leader>bc", function()
-            if is_building then return end
+            if is_building then
+                return
+            end
             is_building = true
             vim.notify("Building Rust projects...")
 
@@ -63,7 +67,9 @@ local function register_build_keymap(cargo_files)
                     end
 
                     finished_count = finished_count + 1
-                    if finished_count == project_count then is_building = false end
+                    if finished_count == project_count then
+                        is_building = false
+                    end
                 end
 
                 local opts = {
@@ -79,7 +85,9 @@ end
 function M.setup()
     local cargo_files = get_cargo_files()
 
-    if next(cargo_files) == nil then return end
+    if next(cargo_files) == nil then
+        return
+    end
 
     local dap = require("dap")
     local toml = require("toml")
