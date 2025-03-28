@@ -22,7 +22,7 @@ local is_building = false
 
 ---@param exec_projects CSProject[]
 local function register_build_keymap(exec_projects)
-    local build = require("build")
+    local build_utils = require("utils.build")
 
     vim.keymap.set("n", "<leader>bC", function()
         if is_building then
@@ -60,7 +60,7 @@ local function register_build_keymap(exec_projects)
             on_exit = on_exit,
             on_completed = on_completed,
         }
-        build.build_projects(opts)
+        build_utils.build_projects(opts)
     end, { desc = "Continue Execution" })
 end
 

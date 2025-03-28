@@ -7,7 +7,7 @@ return {
     config = function()
         local dap = require("dap")
         local dapui = require("dapui")
-        local dap_utils = require("plugins.dap.utils")
+        local dap_utils = require("utils.dap")
         local repl = require("plugins.dap.ui.repl")
 
         local configs = { "dotnet", "rust", "nodejs" }

@@ -1,6 +1,6 @@
 local api = vim.api
-local utils = require("utils")
-local ui = require("ui")
+local buf_utils = require("utils.buffer")
+local ui_utils = require("utils.ui")
 local dap = require("dap")
 local dap_utils = require("dap.utils")
 local dap_ui = require("dap.ui")
@@ -92,8 +92,8 @@ local function open_wins(opts)
         row = output_opts.row + output_opts.height + 2,
         col = output_opts.col,
     }
-    local output_win = ui.open_win(output_opts)
-    local input_win = ui.open_win(input_opts)
+    local output_win = ui_utils.open_win(output_opts)
+    local input_win = ui_utils.open_win(input_opts)
     vim.fn.prompt_setprompt(input_buf, "> ")
     vim.fn.prompt_setcallback(input_buf, function(input)
         opts.on_prompt(input, output_win, input_win)
@@ -114,7 +114,7 @@ local function open_wins(opts)
     vim.keymap.set("i", "<C-n>", function()
         select_history(1, input_buf)
     end, { buffer = input_buf })
-    ui.scroll_bottom(output_win)
+    ui_utils.scroll_bottom(output_win)
     return {
         output_win = output_win,
         input_win = input_win,
@@ -127,13 +127,13 @@ end
 local function print_error(err, auto_scroll, output_win)
     local message = dap_utils.fmt_error(err)
     if message then
-        utils.buf_append_line(output_buf, message, true)
+        buf_utils.buf_append_line(output_buf, message, true)
     else
-        utils.buf_append_line(output_buf, "An error has occurred.", true)
+        buf_utils.buf_append_line(output_buf, "An error has occurred.", true)
         vim.print("Error: " .. vim.inspect(err))
     end
     if auto_scroll then
-        ui.scroll_bottom(output_win)
+        ui_utils.scroll_bottom(output_win)
     end
 end
 
@@ -144,14 +144,14 @@ function M.show_popup()
     local on_prompt = function(input, output_win)
         local session = dap.session()
         if session == nil then
-            utils.buf_append_line(output_buf, "No active debug session.", true)
+            buf_utils.buf_append_line(output_buf, "No active debug session.", true)
             return
         end
         session:evaluate(input, function(err, resp)
             local line_count = api.nvim_buf_line_count(output_buf)
             local cur_line = api.nvim_win_get_cursor(output_win)[1]
             local auto_scroll = cur_line == line_count
-            local is_empty = utils.is_buf_empty(output_buf)
+            local is_empty = buf_utils.is_buf_empty(output_buf)
             if err then
                 print_error(err, auto_scroll, output_win)
                 return
@@ -161,7 +161,7 @@ function M.show_popup()
             local tree = dap_ui.new_tree(spec)
             tree.render(layer, resp, function()
                 if auto_scroll then
-                    ui.scroll_bottom(output_win)
+                    ui_utils.scroll_bottom(output_win)
                 end
             end, is_empty and 0 or line_count, -1)
         end)
