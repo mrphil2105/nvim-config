@@ -1,34 +1,33 @@
+local utils = require("utils")
+local dap = require("dap")
+local vscode = require("dap.ext.vscode")
+
 local M = {}
 
-local run_file = vim.fn.getcwd() .. "/run.toml"
+local launch_file = vim.fn.getcwd() .. "/.vscode/launch.json"
 local prerequisite_file = vim.fn.getcwd() .. "/package.json"
 
 function M.enabled()
-    local utils = require("utils")
-    return utils.file_exists(run_file) and utils.file_exists(prerequisite_file)
+    return utils.file_exists(launch_file) and utils.file_exists(prerequisite_file)
 end
 
 local is_running = false
 
-local function register_keymaps(dap, configs_node, configs_chrome)
-    local utils = require("utils")
-
+local function register_keymaps()
     vim.keymap.set("n", "<leader>bA", function()
         if is_running then
             return
         end
-        for _, config in ipairs(configs_node) do
+        for _, config in ipairs(dap.configurations["typescript"]) do
             dap.run(config, { new = true })
         end
         is_running = true
     end, { desc = "Launch All" })
-
     vim.keymap.set("n", "<leader>bF", function()
-        for _, config in ipairs(configs_chrome) do
+        for _, config in ipairs(dap.configurations["typescriptreact"]) do
             dap.run(config, { new = true })
         end
     end, { desc = "Launch Frontend" })
-
     vim.keymap.set("n", "<leader>bS", function()
         if not is_running then
             return
@@ -40,7 +39,7 @@ local function register_keymaps(dap, configs_node, configs_chrome)
             dap.terminate()
         end
 
-        for _, config in ipairs(configs_node) do
+        for _, config in ipairs(dap.configurations["typescript"]) do
             for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
                 local buffer_name = vim.api.nvim_buf_get_name(buffer)
 
@@ -53,51 +52,14 @@ local function register_keymaps(dap, configs_node, configs_chrome)
     end, { desc = "Stop All" })
 end
 
-local function configure_node(app, options, configs)
-    local js_file = vim.fn.getcwd() .. "/" .. options.main
-    local config = {
-        type = "pwa-node",
-        request = "launch",
-        name = app,
-        cwd = "${workspaceFolder}",
-        program = js_file,
-        args = options.args,
-        env = options.env,
-        sourceMaps = true,
-        protocol = "inspector",
-        console = "integratedTerminal",
-        skipFiles = { "<node_internals>/**", "**/node_modules/**" },
-    }
-    table.insert(configs, config)
-end
-
-local function configure_chrome(app, options, configs)
-    local config = {
-        type = "pwa-chrome",
-        request = "launch",
-        name = app,
-        webRoot = "${workspaceFolder}",
-        url = options.main,
-        sourceMaps = true,
-        protocol = "inspector",
-        userDataDir = "${workspaceFolder}/.chromium-user-data",
-    }
-    table.insert(configs, config)
-end
-
 function M.setup()
     if not M.enabled() then
         return
     end
-
-    local dap = require("dap")
-    local toml = require("toml")
-    local success, run_config = pcall(toml.decodeFromFile, run_file)
-
-    local dap_types = { "pwa-node", "pwa-chrome" }
-
-    for _, dap_type in ipairs(dap_types) do
-        dap.adapters[dap_type] = {
+    local type_to_filetypes = { node = { "typescript" }, chrome = { "typescriptreact" } }
+    local configs = vscode.getconfigs()
+    for dap_type, _ in pairs(type_to_filetypes) do
+        dap.adapters["pwa-" .. dap_type] = {
             type = "server",
             host = "localhost",
             port = "${port}",
@@ -111,26 +73,33 @@ function M.setup()
             },
         }
     end
-
-    if not success then
-        vim.api.nvim_err_writeln("Node.js DAP Failure: " .. vim.inspect(run_config))
-        return
-    end
-
-    local configs_node = {}
-    local configs_chrome = {}
-
-    for app, options in pairs(run_config) do
-        if string.match(options.main, "^https?://") then
-            configure_chrome(app, options, configs_chrome)
-        else
-            configure_node(app, options, configs_node)
+    for _, config in ipairs(configs) do
+        local filetypes = type_to_filetypes[config.type]
+        for _, filetype in ipairs(filetypes) do
+            local dap_configs = dap.configurations[filetype] or {}
+            for i, dap_config in pairs(dap_configs) do
+                if dap_config.name == config.name then
+                    table.remove(dap_configs, i)
+                end
+            end
+            if config.type == "chrome" then
+                ---@diagnostic disable-next-line: inject-field
+                config.userDataDir = "${workspaceFolder}/.chromium-user-data"
+            end
+            if config.type == "node" then
+                ---@diagnostic disable-next-line: inject-field
+                config.console = "integratedTerminal"
+                ---@diagnostic disable-next-line: inject-field
+                config.skipFiles = { "<node_internals>/**", "**/node_modules/**" }
+            end
+            ---@diagnostic disable-next-line: inject-field
+            config.protocol = "inspector"
+            config.type = "pwa-" .. config.type
+            table.insert(dap_configs, config)
+            dap.configurations[filetype] = dap_configs
         end
     end
-
-    register_keymaps(dap, configs_node, configs_chrome)
-    dap.configurations.typescript = configs_node
-    dap.configurations.typescriptreact = configs_chrome
+    register_keymaps()
 end
 
 function M.setup_dapui()
