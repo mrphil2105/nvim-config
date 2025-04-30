@@ -35,8 +35,10 @@ local function register_keymaps()
         local sessions = dap.sessions()
 
         for _, session in pairs(sessions) do
-            dap.set_session(session)
-            dap.terminate()
+            if session.config.type == "pwa-node" then
+                dap.set_session(session)
+                dap.terminate()
+            end
         end
 
         for _, config in ipairs(dap.configurations["typescript"]) do
