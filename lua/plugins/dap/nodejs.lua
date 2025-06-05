@@ -87,12 +87,14 @@ function M.setup()
             if config.type == "chrome" then
                 ---@diagnostic disable-next-line: inject-field
                 config.userDataDir = "${workspaceFolder}/.chromium-user-data"
+                ---@diagnostic disable-next-line: inject-field
+                config.skipFiles = { "<node_internals>/**", "node_modules/**", "**/node_modules/**" }
             end
             if config.type == "node" then
                 ---@diagnostic disable-next-line: inject-field
                 config.console = "integratedTerminal"
                 ---@diagnostic disable-next-line: inject-field
-                config.skipFiles = { "<node_internals>/**", "**/node_modules/**" }
+                config.skipFiles = { "<node_internals>/**", "node_modules/**", "**/node_modules/**" }
             end
             ---@diagnostic disable-next-line: inject-field
             config.protocol = "inspector"
