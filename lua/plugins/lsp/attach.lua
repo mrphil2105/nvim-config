@@ -20,7 +20,9 @@ function M.setup()
 
             nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
             nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-            nmap("<leader>ch", vim.lsp.buf.hover, "[C]ode [H]over")
+            nmap("<leader>ch", function()
+                vim.lsp.buf.hover { border = "single" }
+            end, "[C]ode [H]over")
 
             nmap("]d", vim.diagnostic.goto_next, "Next [D]iagnostic")
             nmap("[d", vim.diagnostic.goto_prev, "Prev [D]iagnostic")
