@@ -12,5 +12,4 @@ return {
     },
     rust_analyzer = {},
     pylsp = {},
-    ts_ls = {},
 }
