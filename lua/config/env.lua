@@ -1,5 +1,4 @@
-local home_dir = os.getenv("HOME")
-local luarocks_so = home_dir .. "/.luarocks/lib/lua/5.1/?.so"
-local luarocks_lua = home_dir .. "/.luarocks/share/lua/5.1/?.lua"
-package.cpath = package.cpath .. ";" .. luarocks_so
-package.path = package.path .. ";" .. luarocks_lua
+local lua_path = os.getenv("LUA_PATH")
+local lua_cpath = os.getenv("LUA_CPATH")
+package.cpath = package.cpath .. ";" .. lua_path
+package.path = package.path .. ";" .. lua_cpath
