@@ -15,6 +15,7 @@ return {
                 c = { "clang-format" },
                 rust = { "rustfmt" },
                 xml = { "xstyler", "remove_bom" },
+                nix = { "nixfmt" },
             },
             formatters = {
                 xstyler = {
