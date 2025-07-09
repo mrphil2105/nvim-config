@@ -107,7 +107,11 @@ function M.setup()
         local success, cargo_manifest = pcall(toml.decodeFromFile, cargo_file)
 
         if not success then
-            vim.api.nvim_err_writeln("Failed to decode Rust manifest: " .. vim.inspect(cargo_manifest))
+            vim.api.nvim_echo(
+                { { "Failed to decode Rust manifest: " .. vim.inspect(cargo_manifest) } },
+                false,
+                { err = true }
+            )
             return
         end
 

@@ -24,8 +24,12 @@ function M.setup()
                 vim.lsp.buf.hover { border = "single" }
             end, "[C]ode [H]over")
 
-            nmap("]d", vim.diagnostic.goto_next, "Next [D]iagnostic")
-            nmap("[d", vim.diagnostic.goto_prev, "Prev [D]iagnostic")
+            nmap("]d", function()
+                vim.diagnostic.jump { count = 1, float = true }
+            end, "Next [D]iagnostic")
+            nmap("[d", function()
+                vim.diagnostic.jump { count = -1, float = true }
+            end, "Prev [D]iagnostic")
 
             local builtin = require("telescope.builtin")
             nmap("gd", builtin.lsp_definitions, "[G]oto [D]efinition")

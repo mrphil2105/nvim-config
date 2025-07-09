@@ -62,7 +62,7 @@ function M.setup()
     local csproj = require("plugins.dap.dotnet.csproj")
     local file_handle, err_msg = io.open(run_file)
     if file_handle == nil then
-        vim.api.nvim_err_writeln(".NET DAP Failure: " .. err_msg)
+        vim.api.nvim_echo({ { ".NET DAP Failure: " .. err_msg } }, false, { err = true })
         return
     end
     local toml_text = file_handle:read("*a")
@@ -73,9 +73,13 @@ function M.setup()
     for app, options in pairs(run_config) do
         local project = csproj.parse(options.project)
         if project == nil then
-            vim.api.nvim_err_writeln("Failed to parse .NET project for application " .. app)
+            vim.api.nvim_echo({ { "Failed to parse .NET project for application " .. app } }, false, { err = true })
         elseif type(project) == "string" then
-            vim.api.nvim_err_writeln("Failed to parse .NET project for application " .. app .. ": " .. project)
+            vim.api.nvim_echo(
+                { { "Failed to parse .NET project for application " .. app .. ": " .. project } },
+                false,
+                { err = true }
+            )
         elseif project.is_executable then
             local executable =
                 utils.path_combine("bin", "Debug", project.target_framework, project.assembly_name .. ".dll")
