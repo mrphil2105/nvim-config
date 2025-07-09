@@ -6,6 +6,7 @@ local M = {}
 
 local launch_file = vim.fn.getcwd() .. "/.vscode/launch.json"
 local prerequisite_file = vim.fn.getcwd() .. "/package.json"
+local js_debug_env_var = "JS_DEBUG_SERVER"
 
 function M.enabled()
     return utils.file_exists(launch_file) and utils.file_exists(prerequisite_file)
@@ -33,14 +34,12 @@ local function register_keymaps()
             return
         end
         local sessions = dap.sessions()
-
         for _, session in pairs(sessions) do
             if session.config.type == "pwa-node" then
                 dap.set_session(session)
                 dap.terminate()
             end
         end
-
         for _, config in ipairs(dap.configurations["typescript"]) do
             for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
                 local buffer_name = vim.api.nvim_buf_get_name(buffer)
@@ -58,6 +57,14 @@ function M.setup()
     if not M.enabled() then
         return
     end
+    local js_debug_path = os.getenv(js_debug_env_var)
+    if js_debug_path == nil then
+        local err_msg = "Environment variable " .. js_debug_env_var .. " must be set."
+        vim.schedule(function()
+            vim.api.nvim_echo({ { err_msg } }, false, { err = true })
+        end)
+        return
+    end
     local type_to_filetypes = { node = { "typescript" }, chrome = { "typescriptreact" } }
     local configs = vscode.getconfigs()
     for dap_type, _ in pairs(type_to_filetypes) do
@@ -69,7 +76,7 @@ function M.setup()
                 command = "node",
                 args = {
                     "--inspect",
-                    vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+                    js_debug_path,
                     "${port}",
                 },
             },
