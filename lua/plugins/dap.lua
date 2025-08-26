@@ -1,28 +1,29 @@
 return {
     "mfussenegger/nvim-dap",
     dependencies = {
-        { "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio" } },
+        -- { "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio" } },
         "nvim-telescope/telescope-dap.nvim",
     },
     config = function()
         local dap = require("dap")
-        local dapui = require("dapui")
+        -- local dapui = require("dapui")
         local dap_utils = require("utils.dap")
         local repl = require("plugins.dap.ui.repl")
 
         local configs = { "dotnet", "rust", "nodejs" }
+        require("dap").defaults.fallback.terminal_win_cmd = "tabnew"
 
         for _, config in ipairs(configs) do
             local dap_config = require("plugins.dap." .. config)
             if dap_config.enabled() then
                 dap_config.setup()
 
-                if dap_config.setup_dapui ~= nil then
-                    dap_config.setup_dapui()
-                else
-                    local dapui_config = require("plugins.dapui.config")
-                    dapui.setup(dapui_config)
-                end
+                -- if dap_config.setup_dapui ~= nil then
+                --     dap_config.setup_dapui()
+                -- else
+                --     local dapui_config = require("plugins.dapui.config")
+                --     dapui.setup(dapui_config)
+                -- end
 
                 break
             end
@@ -35,7 +36,7 @@ return {
         vim.keymap.set("n", "<leader>bi", dap.step_into, { desc = "Step Into" })
         vim.keymap.set("n", "<leader>bo", dap.step_out, { desc = "Step Out" })
         vim.keymap.set("n", "<leader>br", repl.show_popup, { desc = "Open Repl" })
-        vim.keymap.set("n", "<leader>bT", dapui.toggle, { desc = "Toggle DAP UI" })
+        -- vim.keymap.set("n", "<leader>bT", dapui.toggle, { desc = "Toggle DAP UI" })
 
         vim.keymap.set("n", "<leader>ba", function()
             coroutine.wrap(function()

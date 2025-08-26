@@ -13,6 +13,7 @@ return {
                 cs = { "csharpier" },
                 java = { "clang-format" },
                 c = { "clang-format" },
+                cpp = { "clang-format" },
                 rust = { "rustfmt" },
                 xml = { "xstyler", "remove_bom" },
             },

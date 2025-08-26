@@ -88,17 +88,33 @@ function M.setup()
                 ---@diagnostic disable-next-line: inject-field
                 config.userDataDir = "${workspaceFolder}/.chromium-user-data"
                 ---@diagnostic disable-next-line: inject-field
-                config.skipFiles = { "<node_internals>/**", "node_modules/**", "**/node_modules/**" }
+                config.skipFiles = {
+                    "<node_internals>/**",
+                    "node_modules/**",
+                    "**/node_modules/**",
+                    "webpack:///node_modules/**",
+                    "webpack:///webpack/*",
+                    "esbuild://**",
+                }
             end
             if config.type == "node" then
                 ---@diagnostic disable-next-line: inject-field
                 config.console = "integratedTerminal"
                 ---@diagnostic disable-next-line: inject-field
-                config.skipFiles = { "<node_internals>/**", "node_modules/**", "**/node_modules/**" }
+                config.skipFiles = {
+                    "<node_internals>/**",
+                    "node_modules/**",
+                    "**/node_modules/**",
+                    "webpack:///node_modules/**",
+                    "webpack:///webpack/*",
+                    "esbuild://**",
+                }
             end
             ---@diagnostic disable-next-line: inject-field
             config.protocol = "inspector"
             config.type = "pwa-" .. config.type
+            -- config.resolveSourceMapLocations = { "!**/node_modules/**", "**" }
+            -- config.sourceMaps = false
             table.insert(dap_configs, config)
             dap.configurations[filetype] = dap_configs
         end

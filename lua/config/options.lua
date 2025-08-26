@@ -18,4 +18,4 @@ vim.o.updatetime = 1000 -- Swap file delay
 
 vim.o.termguicolors = true -- 24-bit colors
 
-vim.opt.clipboard = "unnamedplus" -- Enable clipboard interaction
+-- vim.opt.clipboard = "unnamedplus" -- Enable clipboard interaction
