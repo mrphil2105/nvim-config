@@ -18,10 +18,6 @@ function M.setup(capabilities)
         local lsp_path = os.getenv(lsp_env_var)
 
         if lsp_path == nil then
-            local err_msg = "Environment variable " .. lsp_env_var .. " must be set."
-            vim.schedule(function()
-                vim.api.nvim_echo({ { err_msg } }, false, { err = true })
-            end)
             return
         end
 
