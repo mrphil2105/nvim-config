@@ -17,5 +17,3 @@ vim.opt.colorcolumn = "+1" -- Max line width indicator
 vim.o.updatetime = 1000 -- Swap file delay
 
 vim.o.termguicolors = true -- 24-bit colors
-
-vim.opt.clipboard = "unnamedplus" -- Enable clipboard interaction
