@@ -23,6 +23,9 @@ return {
         require("plugins.lsp.ui").setup()
         require("plugins.lsp.avalonia").setup(capabilities)
         require("plugins.lsp.attach").setup()
-        vim.lsp.enable("cssls")
+        local lsps = { "nixd", "eslint", "cssls" }
+        for _, lsp in ipairs(lsps) do
+            vim.lsp.enable(lsp)
+        end
     end,
 }
