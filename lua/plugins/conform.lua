@@ -16,6 +16,7 @@ return {
                 rust = { "rustfmt" },
                 xml = { "xstyler", "remove_bom" },
                 nix = { "nixfmt" },
+                css = { "cssbeautifier" },
             },
             formatters = {
                 xstyler = {
@@ -32,6 +33,13 @@ return {
                     stdin = false,
                     condition = function(_, ctx)
                         return utils.has_file_extension(ctx.filename, ".axaml")
+                    end,
+                },
+                cssbeautifier = {
+                    command = "css-beautify",
+                    args = { "--stdin" },
+                    condition = function(_, ctx)
+                        return utils.has_file_extension(ctx.filename, ".css")
                     end,
                 },
             },

@@ -23,5 +23,6 @@ return {
         require("plugins.lsp.ui").setup()
         require("plugins.lsp.avalonia").setup(capabilities)
         require("plugins.lsp.attach").setup()
+        vim.lsp.enable("cssls")
     end,
 }
