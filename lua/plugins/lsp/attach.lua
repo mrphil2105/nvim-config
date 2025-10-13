@@ -18,25 +18,18 @@ function M.setup()
                 vim.keymap.set("n", keys, func, { buffer = buffer, desc = desc })
             end
 
-            nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-            nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+            nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
+            nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
             nmap("<leader>ch", function()
                 vim.lsp.buf.hover { border = "single" }
-            end, "[C]ode [H]over")
+            end, "Code Hover")
 
             nmap("]d", function()
                 vim.diagnostic.jump { count = 1, float = true }
-            end, "Next [D]iagnostic")
+            end, "Next Diagnostic")
             nmap("[d", function()
                 vim.diagnostic.jump { count = -1, float = true }
-            end, "Prev [D]iagnostic")
-
-            local builtin = require("telescope.builtin")
-            nmap("gd", builtin.lsp_definitions, "[G]oto [D]efinition")
-            nmap("gr", builtin.lsp_references, "[G]oto [R]eferences")
-            nmap("gi", builtin.lsp_implementations, "[G]oto [I]mplementation")
-            nmap("td", builtin.lsp_type_definitions, "[T]ype [D]efinition")
-            nmap("<leader>ds", builtin.lsp_document_symbols, "[D]ocument [S]ymbols")
+            end, "Prev Diagnostic")
         end,
     })
 end
