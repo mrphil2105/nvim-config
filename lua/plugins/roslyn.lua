@@ -15,9 +15,7 @@ return {
                     "--razorDesignTimePath="
                         .. vim.fs.joinpath(rzls_base_path, "Targets", "Microsoft.NET.Sdk.Razor.DesignTime.targets"),
                 }
-                local capabilities = vim.lsp.protocol.make_client_capabilities()
-                capabilities =
-                    vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+                local capabilities = require("blink.cmp").get_lsp_capabilities()
                 vim.lsp.config("roslyn", {
                     cmd = cmd,
                     handlers = require("rzls.roslyn_handlers"),
