@@ -5,7 +5,14 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-        picker = { enabled = true },
+        picker = {
+            enabled = true,
+            formatters = {
+                file = {
+                    truncate = 80,
+                },
+            },
+        },
     },
     keys = {
         {
