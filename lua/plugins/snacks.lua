@@ -30,6 +30,13 @@ return {
             desc = "Grep",
         },
         {
+            "<leader>fw",
+            function()
+                Snacks.picker.grep_word { exclude = excluded_files }
+            end,
+            desc = "Grep Word",
+        },
+        {
             "<leader>fb",
             function()
                 Snacks.picker.buffers()
