@@ -10,8 +10,7 @@ return {
         local dap_utils = require("utils.dap")
         local repl = require("plugins.dap.ui.repl")
 
-        local configs = { "dotnet", "rust", "nodejs" }
-
+        local configs = { "cpp", "dotnet", "rust", "nodejs" }
         for _, config in ipairs(configs) do
             local dap_config = require("plugins.dap." .. config)
             if dap_config.enabled() then
