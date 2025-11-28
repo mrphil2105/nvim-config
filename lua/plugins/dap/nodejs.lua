@@ -6,7 +6,7 @@ local M = {}
 
 local launch_file = vim.fn.getcwd() .. "/.vscode/launch.json"
 local prerequisite_file = vim.fn.getcwd() .. "/package.json"
-local js_debug_env_var = "JS_DEBUG_SERVER"
+local js_dap_env_var = "JS_DAP_SERVER"
 
 function M.enabled()
     return utils.file_exists(launch_file) and utils.file_exists(prerequisite_file)
@@ -57,9 +57,9 @@ function M.setup()
     if not M.enabled() then
         return
     end
-    local js_debug_path = os.getenv(js_debug_env_var)
-    if js_debug_path == nil then
-        local err_msg = "Environment variable " .. js_debug_env_var .. " must be set."
+    local js_dap_path = os.getenv(js_dap_env_var)
+    if js_dap_path == nil then
+        local err_msg = "Environment variable " .. js_dap_env_var .. " must be set."
         vim.schedule(function()
             vim.api.nvim_echo({ { err_msg } }, false, { err = true })
         end)
@@ -76,7 +76,7 @@ function M.setup()
                 command = "node",
                 args = {
                     "--inspect",
-                    js_debug_path,
+                    js_dap_path,
                     "${port}",
                 },
             },
@@ -113,67 +113,19 @@ function M.setup()
     register_keymaps()
 end
 
-function M.setup_dapui()
-    local dapui_config = {
-        controls = {
-            element = "repl",
-            enabled = true,
-            icons = {
-                disconnect = "",
-                pause = "",
-                play = "",
-                run_last = "",
-                step_back = "",
-                step_into = "",
-                step_out = "",
-                step_over = "",
-                terminate = "",
+function M.setup_dapview()
+    ---@type dapview.Config
+    local dapview_config = {
+        windows = {
+            terminal = {
+                hide = { "pwa-node", "pwa-chrome" },
             },
         },
-        element_mappings = {},
-        expand_lines = true,
-        floating = {
-            border = "single",
-            mappings = {
-                close = { "q", "<Esc>" },
-            },
-        },
-        force_buffers = true,
-        icons = {
-            collapsed = "",
-            current_frame = "",
-            expanded = "",
-        },
-        layouts = {
-            {
-                elements = {
-                    {
-                        id = "scopes",
-                        size = 0.66,
-                    },
-                    {
-                        id = "breakpoints",
-                        size = 0.33,
-                    },
-                },
-                position = "left",
-                size = 40,
-            },
-        },
-        mappings = {
-            edit = "e",
-            expand = { "<CR>", "<2-LeftMouse>" },
-            open = "o",
-            remove = "d",
-            repl = "r",
-            toggle = "t",
-        },
-        render = {
-            indent = 1,
-            max_value_lines = 100,
+        winbar = {
+            sections = { "watches", "scopes", "exceptions", "breakpoints", "threads" },
         },
     }
-    require("dapui").setup(dapui_config)
+    require("dap-view").setup(dapview_config)
     require("dap").defaults.fallback.terminal_win_cmd = "tabnew"
 end
 

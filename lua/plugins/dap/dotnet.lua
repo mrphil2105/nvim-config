@@ -62,7 +62,7 @@ function M.setup()
     local csproj = require("plugins.dap.dotnet.csproj")
     local file_handle, err_msg = io.open(run_file)
     if file_handle == nil then
-        vim.api.nvim_echo({ { ".NET DAP Failure: " .. err_msg } }, false, { err = true })
+        vim.api.nvim_echo({ { ".NET DAP failure: " .. err_msg } }, false, { err = true })
         return
     end
     local toml_text = file_handle:read("*a")
@@ -103,74 +103,6 @@ function M.setup()
         args = { "--interpreter=vscode" },
     }
     dap.configurations.cs = configs
-end
-
-function M.setup_dapui()
-    local dapui_config = {
-        controls = {
-            element = "repl",
-            enabled = true,
-            icons = {
-                disconnect = "",
-                pause = "",
-                play = "",
-                run_last = "",
-                step_back = "",
-                step_into = "",
-                step_out = "",
-                step_over = "",
-                terminate = "",
-            },
-        },
-        element_mappings = {},
-        expand_lines = true,
-        floating = {
-            border = "single",
-            mappings = {
-                close = { "q", "<Esc>" },
-            },
-        },
-        force_buffers = true,
-        icons = {
-            collapsed = "",
-            current_frame = "",
-            expanded = "",
-        },
-        layouts = {
-            {
-                elements = {
-                    {
-                        id = "scopes",
-                        size = 0.33,
-                    },
-                    {
-                        id = "stacks",
-                        size = 0.33,
-                    },
-                    {
-                        id = "breakpoints",
-                        size = 0.33,
-                    },
-                },
-                position = "left",
-                size = 40,
-            },
-        },
-        mappings = {
-            edit = "e",
-            expand = { "<CR>", "<2-LeftMouse>" },
-            open = "o",
-            remove = "d",
-            repl = "r",
-            toggle = "t",
-        },
-        render = {
-            indent = 1,
-            max_value_lines = 100,
-        },
-    }
-    require("dapui").setup(dapui_config)
-    require("dap").defaults.fallback.terminal_win_cmd = "tabnew"
 end
 
 return M
