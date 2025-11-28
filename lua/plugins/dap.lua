@@ -62,5 +62,18 @@ return {
                 end, 500)
             end)()
         end, { desc = "Restart Session" })
+
+        vim.keymap.set("n", "<leader>bk", function()
+            coroutine.wrap(function()
+                local session = dap_utils.select_session()
+                if session == nil then
+                    vim.notify("No session selected.")
+                    return
+                end
+                vim.notify("Terminating session: " .. session.config.name)
+                dap.set_session(session)
+                dap.terminate()
+            end)()
+        end, { desc = "Terminate Session" })
     end,
 }
