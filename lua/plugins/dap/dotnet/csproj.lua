@@ -14,13 +14,9 @@ local utils = require("utils")
 local function create_csproject(project_file, xml_root)
     local project = {}
     local property_group = xml_root["Project"]["PropertyGroup"]
-    if property_group == nil then
-        return "Missing PropertyGroup element in Project."
-    end
+    if property_group == nil then return "Missing PropertyGroup element in Project." end
     local target_framework = property_group["TargetFramework"]
-    if target_framework == nil then
-        return "Missing TargetFramework element in PropertyGroup."
-    end
+    if target_framework == nil then return "Missing TargetFramework element in PropertyGroup." end
     project.target_framework = target_framework
     project.name = vim.fs.basename(project_file):sub(1, -8)
     local assembly_name = property_group["AssemblyName"]
@@ -41,9 +37,7 @@ function M.parse(project_file)
     local xml2lua = require("xml2lua")
     local handler = require("xmlhandler.tree")
     local file_handle, err_msg = io.open(project_file)
-    if file_handle == nil then
-        return err_msg
-    end
+    if file_handle == nil then return err_msg end
     local xml_text = file_handle:read("*a")
     file_handle:close()
     local parser = xml2lua.parser(handler)

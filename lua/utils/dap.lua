@@ -9,9 +9,11 @@ function M.select_session()
     for _, session in pairs(table_sessions) do
         table.insert(list_sessions, session)
     end
-    local session = ui_utils.select_if_many(list_sessions, "Session: ", function(session)
-        return session.config.name
-    end)
+    local session = ui_utils.select_if_many(
+        list_sessions,
+        "Session: ",
+        function(session) return session.config.name end
+    )
     return session
 end
 

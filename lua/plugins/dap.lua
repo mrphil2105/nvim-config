@@ -31,9 +31,12 @@ return {
         vim.keymap.set("n", "<leader>bi", dap.step_into, { desc = "Step Into" })
         vim.keymap.set("n", "<leader>bo", dap.step_out, { desc = "Step Out" })
         vim.keymap.set("n", "<leader>br", repl.show_popup, { desc = "Open Repl" })
-        vim.keymap.set("n", "<leader>bT", function()
-            vim.api.nvim_command("DapViewToggle")
-        end, { desc = "Toggle DAP View" })
+        vim.keymap.set(
+            "n",
+            "<leader>bT",
+            function() vim.api.nvim_command("DapViewToggle") end,
+            { desc = "Toggle DAP View" }
+        )
 
         vim.keymap.set("n", "<leader>ba", function()
             coroutine.wrap(function()
@@ -57,9 +60,7 @@ return {
                 vim.notify("Restarting session: " .. session.config.name)
                 dap.set_session(session)
                 dap.terminate()
-                vim.defer_fn(function()
-                    dap.run(session.config, { new = true })
-                end, 500)
+                vim.defer_fn(function() dap.run(session.config, { new = true }) end, 500)
             end)()
         end, { desc = "Restart Session" })
 

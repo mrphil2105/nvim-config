@@ -25,9 +25,7 @@ return {
     keys = {
         {
             "<leader>o",
-            function()
-                require("oil").open_float()
-            end,
+            function() require("oil").open_float() end,
             desc = "Open Oil Float",
         },
     },

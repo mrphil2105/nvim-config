@@ -5,9 +5,7 @@ local M = {}
 ---@param buf integer The buffer to check.
 function M.is_buf_empty(buf)
     local line_count = api.nvim_buf_line_count(buf)
-    if line_count > 1 then
-        return false
-    end
+    if line_count > 1 then return false end
     local lines = api.nvim_buf_get_lines(buf, 0, 1, false)
     return lines[1] == ""
 end
@@ -30,9 +28,7 @@ function M.buf_append_line(buf, line, overwrite_modifiable)
         api.nvim_buf_set_lines(buf, line_count, line_count, false, { line })
     end
 
-    if overwrite_modifiable then
-        api.nvim_set_option_value("modifiable", old_modifiable, { buf = buf })
-    end
+    if overwrite_modifiable then api.nvim_set_option_value("modifiable", old_modifiable, { buf = buf }) end
 end
 
 return M

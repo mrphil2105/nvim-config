@@ -8,9 +8,7 @@ function M.enabled()
     local cwd = vim.fn.getcwd()
     local has_solution = false
     for path_name, type in vim.fs.dir(cwd) do
-        if type == "file" and path_name:match("%.sln$") then
-            has_solution = true
-        end
+        if type == "file" and path_name:match("%.sln$") then has_solution = true end
     end
     return has_solution and utils.file_exists(run_file)
 end
@@ -19,9 +17,7 @@ end
 local function register_build_keymap(exec_projects)
     local build_utils = require("utils.build")
     vim.keymap.set("n", "<leader>bC", function()
-        if is_building then
-            return
-        end
+        if is_building then return end
         is_building = true
         vim.notify("Building .NET projects...")
         local project_names = {}
@@ -55,9 +51,7 @@ local function register_build_keymap(exec_projects)
 end
 
 function M.setup()
-    if not M.enabled() then
-        return
-    end
+    if not M.enabled() then return end
     local toml = require("toml")
     local csproj = require("plugins.dap.dotnet.csproj")
     local file_handle, err_msg = io.open(run_file)

@@ -24,24 +24,18 @@ return {
                     command = "xstyler",
                     args = { "--loglevel", "None", "--file", "$FILENAME" },
                     stdin = false,
-                    condition = function(_, ctx)
-                        return utils.has_file_extension(ctx.filename, ".axaml")
-                    end,
+                    condition = function(_, ctx) return utils.has_file_extension(ctx.filename, ".axaml") end,
                 },
                 remove_bom = {
                     command = "dos2unix",
                     args = { "$FILENAME" },
                     stdin = false,
-                    condition = function(_, ctx)
-                        return utils.has_file_extension(ctx.filename, ".axaml")
-                    end,
+                    condition = function(_, ctx) return utils.has_file_extension(ctx.filename, ".axaml") end,
                 },
                 cssbeautifier = {
                     command = "css-beautify",
                     args = { "--stdin" },
-                    condition = function(_, ctx)
-                        return utils.has_file_extension(ctx.filename, ".css")
-                    end,
+                    condition = function(_, ctx) return utils.has_file_extension(ctx.filename, ".css") end,
                 },
             },
         }
@@ -49,9 +43,7 @@ return {
         local group = vim.api.nvim_create_augroup("Formatter", {})
         vim.api.nvim_create_autocmd("BufWritePre", {
             group = group,
-            callback = function(args)
-                conform.format { bufnr = args.buf }
-            end,
+            callback = function(args) conform.format { bufnr = args.buf } end,
         })
     end,
 }

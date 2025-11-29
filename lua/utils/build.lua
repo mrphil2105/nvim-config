@@ -48,9 +48,7 @@ function M.build_project(opts)
     local buf, win = create_log_buf(opts.project_name)
     local job_id
     local chan = vim.api.nvim_open_term(buf, {
-        on_input = function(_, _, _, data)
-            pcall(vim.api.nvim_chan_send, job_id, data)
-        end,
+        on_input = function(_, _, _, data) pcall(vim.api.nvim_chan_send, job_id, data) end,
     })
     local on_stdout = function(_, data)
         local count = #data
@@ -64,9 +62,7 @@ function M.build_project(opts)
     end
     local on_exit = function(_, exit_code)
         pcall(vim.api.nvim_chan_send, chan, "\r\n[Process exited " .. exit_code .. "]")
-        if opts.on_exit ~= nil then
-            opts.on_exit(exit_code)
-        end
+        if opts.on_exit ~= nil then opts.on_exit(exit_code) end
     end
     local job_opts = {
         cwd = opts.project_dir,
@@ -87,15 +83,9 @@ function M.build_projects(opts)
     for idx, project_dir in ipairs(opts.project_dirs) do
         local on_exit = function(exit_code)
             finished = finished + 1
-            if exit_code == 0 then
-                success = success + 1
-            end
-            if opts.on_exit ~= nil then
-                opts.on_exit(idx, exit_code)
-            end
-            if finished == #opts.project_dirs and opts.on_completed ~= nil then
-                opts.on_completed(success, finished)
-            end
+            if exit_code == 0 then success = success + 1 end
+            if opts.on_exit ~= nil then opts.on_exit(idx, exit_code) end
+            if finished == #opts.project_dirs and opts.on_completed ~= nil then opts.on_completed(success, finished) end
         end
         local build_opts = {
             project_name = opts.project_names[idx],

@@ -8,17 +8,13 @@ local launch_file = vim.fn.getcwd() .. "/.vscode/launch.json"
 local prerequisite_file = vim.fn.getcwd() .. "/package.json"
 local js_dap_env_var = "JS_DAP_SERVER"
 
-function M.enabled()
-    return utils.file_exists(launch_file) and utils.file_exists(prerequisite_file)
-end
+function M.enabled() return utils.file_exists(launch_file) and utils.file_exists(prerequisite_file) end
 
 local is_running = false
 
 local function register_keymaps()
     vim.keymap.set("n", "<leader>bA", function()
-        if is_running then
-            return
-        end
+        if is_running then return end
         for _, config in ipairs(dap.configurations["typescript"]) do
             dap.run(config, { new = true })
         end
@@ -30,9 +26,7 @@ local function register_keymaps()
         end
     end, { desc = "Launch Frontend" })
     vim.keymap.set("n", "<leader>bS", function()
-        if not is_running then
-            return
-        end
+        if not is_running then return end
         local sessions = dap.sessions()
         for _, session in pairs(sessions) do
             if session.config.type == "pwa-node" then
@@ -54,15 +48,11 @@ local function register_keymaps()
 end
 
 function M.setup()
-    if not M.enabled() then
-        return
-    end
+    if not M.enabled() then return end
     local js_dap_path = os.getenv(js_dap_env_var)
     if js_dap_path == nil then
         local err_msg = "Environment variable " .. js_dap_env_var .. " must be set."
-        vim.schedule(function()
-            vim.api.nvim_echo({ { err_msg } }, false, { err = true })
-        end)
+        vim.schedule(function() vim.api.nvim_echo({ { err_msg } }, false, { err = true }) end)
         return
     end
     local type_to_filetypes = { node = { "typescript" }, chrome = { "typescriptreact" } }
@@ -87,9 +77,7 @@ function M.setup()
         for _, filetype in ipairs(filetypes) do
             local dap_configs = dap.configurations[filetype] or {}
             for i, dap_config in pairs(dap_configs) do
-                if dap_config.name == config.name then
-                    table.remove(dap_configs, i)
-                end
+                if dap_config.name == config.name then table.remove(dap_configs, i) end
             end
             if config.type == "chrome" then
                 ---@diagnostic disable-next-line: inject-field

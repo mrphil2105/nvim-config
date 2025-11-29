@@ -35,9 +35,7 @@ local function setup_configs(run_config)
 end
 
 function M.setup()
-    if not M.enabled() then
-        return
-    end
+    if not M.enabled() then return end
     local toml = require("toml")
     local file_handle, err_msg = io.open(run_file)
     if file_handle == nil then

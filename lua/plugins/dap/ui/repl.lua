@@ -20,9 +20,7 @@ local history = {
 
 ---@param input string The input to append to the history.
 local function insert_history(input)
-    if #history.entries == history.max_size then
-        table.remove(history.entries, 1)
-    end
+    if #history.entries == history.max_size then table.remove(history.entries, 1) end
     table.insert(history.entries, input)
     history.idx = #history.entries + 1
 end
@@ -53,9 +51,7 @@ local function init_repl()
     api.nvim_set_option_value("buftype", "prompt", { buf = input_buf })
     api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
         buffer = input_buf,
-        callback = function()
-            api.nvim_set_option_value("modified", false, { buf = input_buf })
-        end,
+        callback = function() api.nvim_set_option_value("modified", false, { buf = input_buf }) end,
     })
     is_initialized = true
 end
@@ -95,25 +91,17 @@ local function open_wins(opts)
     local output_win = ui_utils.open_win(output_opts)
     local input_win = ui_utils.open_win(input_opts)
     vim.fn.prompt_setprompt(input_buf, "> ")
-    vim.fn.prompt_setcallback(input_buf, function(input)
-        opts.on_prompt(input, output_win, input_win)
-    end)
+    vim.fn.prompt_setcallback(input_buf, function(input) opts.on_prompt(input, output_win, input_win) end)
     vim.cmd("startinsert!")
     local function close_popup()
         api.nvim_win_close(output_win, true)
         api.nvim_win_close(input_win, true)
-        if opts.on_close then
-            opts.on_close()
-        end
+        if opts.on_close then opts.on_close() end
     end
     vim.keymap.set("n", "<Esc>", close_popup, { buffer = output_buf })
     vim.keymap.set("n", "<Esc>", close_popup, { buffer = input_buf })
-    vim.keymap.set("i", "<C-p>", function()
-        select_history(-1, input_buf)
-    end, { buffer = input_buf })
-    vim.keymap.set("i", "<C-n>", function()
-        select_history(1, input_buf)
-    end, { buffer = input_buf })
+    vim.keymap.set("i", "<C-p>", function() select_history(-1, input_buf) end, { buffer = input_buf })
+    vim.keymap.set("i", "<C-n>", function() select_history(1, input_buf) end, { buffer = input_buf })
     ui_utils.scroll_bottom(output_win)
     return {
         output_win = output_win,
@@ -132,15 +120,11 @@ local function print_error(err, auto_scroll, output_win)
         buf_utils.buf_append_line(output_buf, "An error has occurred.", true)
         vim.print("Error: " .. vim.inspect(err))
     end
-    if auto_scroll then
-        ui_utils.scroll_bottom(output_win)
-    end
+    if auto_scroll then ui_utils.scroll_bottom(output_win) end
 end
 
 function M.show_popup()
-    if not is_initialized then
-        init_repl()
-    end
+    if not is_initialized then init_repl() end
     local on_prompt = function(input, output_win)
         local session = dap.session()
         if session == nil then
@@ -160,9 +144,7 @@ function M.show_popup()
             local spec = dap_entity.variable.tree_spec
             local tree = dap_ui.new_tree(spec)
             tree.render(layer, resp, function()
-                if auto_scroll then
-                    ui_utils.scroll_bottom(output_win)
-                end
+                if auto_scroll then ui_utils.scroll_bottom(output_win) end
             end, is_empty and 0 or line_count, -1)
         end)
         insert_history(input)
