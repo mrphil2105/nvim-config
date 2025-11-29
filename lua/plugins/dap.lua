@@ -1,10 +1,6 @@
 return {
     "mfussenegger/nvim-dap",
-    dependencies = {
-        {
-            "igorlfs/nvim-dap-view",
-        },
-    },
+    dependencies = { "igorlfs/nvim-dap-view" },
     config = function()
         local dap = require("dap")
         local dap_utils = require("utils.dap")
@@ -31,12 +27,8 @@ return {
         vim.keymap.set("n", "<leader>bi", dap.step_into, { desc = "Step Into" })
         vim.keymap.set("n", "<leader>bo", dap.step_out, { desc = "Step Out" })
         vim.keymap.set("n", "<leader>br", repl.show_popup, { desc = "Open Repl" })
-        vim.keymap.set(
-            "n",
-            "<leader>bT",
-            function() vim.api.nvim_command("DapViewToggle") end,
-            { desc = "Toggle DAP View" }
-        )
+        local toggle_dap_view = function() vim.api.nvim_command("DapViewToggle") end
+        vim.keymap.set("n", "<leader>bT", toggle_dap_view, { desc = "Toggle DAP View" })
 
         vim.keymap.set("n", "<leader>ba", function()
             coroutine.wrap(function()

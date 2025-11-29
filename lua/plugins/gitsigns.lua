@@ -1,9 +1,7 @@
 return {
     "lewis6991/gitsigns.nvim",
     opts = {
-        preview_config = {
-            border = "single",
-        },
+        preview_config = { border = "single" },
         on_attach = function(buffer)
             local gitsigns = require("gitsigns")
             local function map(mode, l, r, opts)

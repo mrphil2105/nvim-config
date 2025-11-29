@@ -35,10 +35,7 @@ return {
     config = true,
     init = function()
         vim.filetype.add {
-            extension = {
-                razor = "razor",
-                cshtml = "razor",
-            },
+            extension = { razor = "razor", cshtml = "razor" },
         }
     end,
 }

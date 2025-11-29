@@ -5,8 +5,6 @@ return {
         library = {
             { path = "snacks.nvim", words = { "Snacks" } },
         },
-        integrations = {
-            cmp = true,
-        },
+        integrations = { cmp = false },
     },
 }

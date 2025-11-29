@@ -1,8 +1,6 @@
 return {
     "scalameta/nvim-metals",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-    },
+    dependencies = { "nvim-lua/plenary.nvim" },
     ft = { "scala", "sbt" },
     config = function(self, metals_config)
         local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
