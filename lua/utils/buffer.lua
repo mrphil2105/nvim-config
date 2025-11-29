@@ -1,6 +1,5 @@
-local api = vim.api
-
 local M = {}
+local api = vim.api
 
 ---@param buf integer The buffer to check.
 function M.is_buf_empty(buf)

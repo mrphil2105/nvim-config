@@ -1,6 +1,5 @@
-local api = vim.api
-
 local M = {}
+local api = vim.api
 
 ---@class OpenWinOptions
 ---@field title string The title to display.

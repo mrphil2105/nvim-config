@@ -1,3 +1,4 @@
+local M = {}
 local api = vim.api
 local buf_utils = require("utils.buffer")
 local ui_utils = require("utils.ui")
@@ -5,8 +6,6 @@ local dap = require("dap")
 local dap_utils = require("dap.utils")
 local dap_ui = require("dap.ui")
 local dap_entity = require("dap.entity")
-
-local M = {}
 
 local is_initialized = false
 local output_buf = 0

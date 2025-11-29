@@ -5,7 +5,6 @@ return {
         local dap = require("dap")
         local dap_utils = require("utils.dap")
         local repl = require("plugins.dap.ui.repl")
-
         local configs = { "cpp", "dotnet", "rust", "nodejs" }
         for _, config in ipairs(configs) do
             local dap_config = require("plugins.dap." .. config)
@@ -19,7 +18,6 @@ return {
                 break
             end
         end
-
         vim.keymap.set("n", "<leader>bt", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
         vim.keymap.set("n", "<leader>be", dap.set_exception_breakpoints, { desc = "Exception Breakpoints" })
         vim.keymap.set("n", "<leader>bc", dap.continue, { desc = "Continue Execution" })
@@ -29,7 +27,6 @@ return {
         vim.keymap.set("n", "<leader>br", repl.show_popup, { desc = "Open Repl" })
         local toggle_dap_view = function() vim.api.nvim_command("DapViewToggle") end
         vim.keymap.set("n", "<leader>bT", toggle_dap_view, { desc = "Toggle DAP View" })
-
         vim.keymap.set("n", "<leader>ba", function()
             coroutine.wrap(function()
                 local session = dap_utils.select_session()
@@ -41,7 +38,6 @@ return {
                 dap.set_session(session)
             end)()
         end, { desc = "Set Active Session" })
-
         vim.keymap.set("n", "<leader>bR", function()
             coroutine.wrap(function()
                 local session = dap_utils.select_session()
@@ -55,7 +51,6 @@ return {
                 vim.defer_fn(function() dap.run(session.config, { new = true }) end, 500)
             end)()
         end, { desc = "Restart Session" })
-
         vim.keymap.set("n", "<leader>bk", function()
             coroutine.wrap(function()
                 local session = dap_utils.select_session()

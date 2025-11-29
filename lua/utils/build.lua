@@ -1,6 +1,5 @@
-local utils = require("utils")
-
 local M = {}
+local utils = require("utils")
 
 ---@class BuildProjectOptions
 ---@field project_name string The name of the project to build.

@@ -3,7 +3,6 @@ return {
     config = function()
         local utils = require("utils")
         local conform = require("conform")
-
         conform.setup {
             formatters_by_ft = {
                 lua = { "stylua" },
@@ -39,7 +38,6 @@ return {
                 },
             },
         }
-
         local group = vim.api.nvim_create_augroup("Formatter", {})
         vim.api.nvim_create_autocmd("BufWritePre", {
             group = group,

@@ -1,7 +1,6 @@
+local M = {}
 local dap = require("dap")
 local ui_utils = require("utils.ui")
-
-local M = {}
 
 function M.select_session()
     local table_sessions = dap.sessions()

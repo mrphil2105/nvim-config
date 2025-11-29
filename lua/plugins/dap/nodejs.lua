@@ -1,8 +1,7 @@
+local M = {}
 local utils = require("utils")
 local dap = require("dap")
 local vscode = require("dap.ext.vscode")
-
-local M = {}
 
 local launch_file = vim.fn.getcwd() .. "/.vscode/launch.json"
 local prerequisite_file = vim.fn.getcwd() .. "/package.json"
