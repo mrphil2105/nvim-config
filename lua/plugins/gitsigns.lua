@@ -1,54 +1,55 @@
 return {
     "lewis6991/gitsigns.nvim",
-    config = function()
-        require("gitsigns").setup {
-            on_attach = function(buffer)
-                local gs = require("gitsigns")
-
-                local nmap = function(keys, func, opts)
-                    opts = opts or {}
-                    opts.buffer = buffer
-                    vim.keymap.set("n", keys, func, opts)
+    opts = {
+        preview_config = {
+            border = "single",
+        },
+        on_attach = function(buffer)
+            local gitsigns = require("gitsigns")
+            local function map(mode, l, r, opts)
+                opts = opts or {}
+                opts.buffer = buffer
+                vim.keymap.set(mode, l, r, opts)
+            end
+            map("n", "]c", function()
+                if vim.wo.diff then
+                    vim.cmd.normal { "]c", bang = true }
+                else
+                    gitsigns.nav_hunk("next")
                 end
-
-                -- Navigation
-                nmap("]c", function()
-                    if vim.wo.diff then
-                        return "]c"
-                    end
-                    vim.schedule(function()
-                        gs.next_hunk()
-                    end)
-                    return "<Ignore>"
-                end, { expr = true })
-
-                nmap("[c", function()
-                    if vim.wo.diff then
-                        return "[c"
-                    end
-                    vim.schedule(function()
-                        gs.prev_hunk()
-                    end)
-                    return "<Ignore>"
-                end, { expr = true })
-
-                -- Actions
-                nmap("<leader>hs", gs.stage_hunk)
-                nmap("<leader>hr", gs.reset_hunk)
-                nmap("<leader>hS", gs.stage_buffer)
-                nmap("<leader>hu", gs.undo_stage_hunk)
-                nmap("<leader>hR", gs.reset_buffer)
-                nmap("<leader>hp", gs.preview_hunk)
-                nmap("<leader>hb", function()
-                    gs.blame_line { full = true }
-                end)
-                nmap("<leader>tb", gs.toggle_current_line_blame)
-                nmap("<leader>hd", gs.diffthis)
-                nmap("<leader>hD", function()
-                    gs.diffthis("~")
-                end)
-                nmap("<leader>td", gs.toggle_deleted)
-            end,
-        }
-    end,
+            end)
+            map("n", "[c", function()
+                if vim.wo.diff then
+                    vim.cmd.normal { "[c", bang = true }
+                else
+                    gitsigns.nav_hunk("prev")
+                end
+            end)
+            map("n", "<leader>hs", gitsigns.stage_hunk)
+            map("n", "<leader>hr", gitsigns.reset_hunk)
+            map("v", "<leader>hs", function()
+                gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") }
+            end)
+            map("v", "<leader>hr", function()
+                gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") }
+            end)
+            map("n", "<leader>hS", gitsigns.stage_buffer)
+            map("n", "<leader>hR", gitsigns.reset_buffer)
+            map("n", "<leader>hp", gitsigns.preview_hunk)
+            map("n", "<leader>hi", gitsigns.preview_hunk_inline)
+            map("n", "<leader>hb", function()
+                gitsigns.blame_line { full = true }
+            end)
+            map("n", "<leader>hd", gitsigns.diffthis)
+            map("n", "<leader>hD", function()
+                gitsigns.diffthis("~")
+            end)
+            map("n", "<leader>hQ", function()
+                gitsigns.setqflist("all")
+            end)
+            map("n", "<leader>hq", gitsigns.setqflist)
+            map("n", "<leader>tb", gitsigns.toggle_current_line_blame)
+            map({ "o", "x" }, "ih", gitsigns.select_hunk)
+        end,
+    },
 }
