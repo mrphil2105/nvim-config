@@ -6,7 +6,6 @@ return {
             { path = "snacks.nvim", words = { "Snacks" } },
         },
         integrations = {
-            lspconfig = true,
             cmp = true,
         },
     },
