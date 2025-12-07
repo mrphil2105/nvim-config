@@ -5,8 +5,8 @@ return {
         formatters_by_ft = {
             lua = { "stylua" },
             python = { "black" },
-            typescript = { "prettier" },
-            typescriptreact = { "prettier" },
+            typescript = { "biome" },
+            typescriptreact = { "biome" },
             cs = { "csharpier" },
             java = { "clang-format" },
             c = { "clang-format" },

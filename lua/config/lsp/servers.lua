@@ -23,6 +23,6 @@ return {
     },
     rust_analyzer = {},
     pylsp = {},
-    eslint = {},
+    biome = {},
     cssls = {},
 }
