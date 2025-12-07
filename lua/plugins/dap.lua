@@ -43,18 +43,25 @@ local function terminate_dap_session()
 end
 
 return {
-    "mfussenegger/nvim-dap",
-    dependencies = { "igorlfs/nvim-dap-view" },
+    "igorlfs/nvim-dap-view",
+    dependencies = { "mfussenegger/nvim-dap" },
     config = function()
         local configs = { "cpp", "dotnet", "rust", "nodejs" }
         for _, config in ipairs(configs) do
             local dap_config = require("plugins.dap." .. config)
             if dap_config.enabled() then
                 dap_config.setup()
-                if dap_config.setup_dapview ~= nil then
-                    dap_config.setup_dapview()
+                if dap_config.setup_dap_view ~= nil then
+                    dap_config.setup_dap_view()
                 else
-                    require("dap-view").setup()
+                    ---@type dapview.Config
+                    local dap_view_config = {
+                        winbar = {
+                            sections = { "scopes", "watches", "exceptions", "breakpoints", "threads", "repl" },
+                            default_section = "scopes",
+                        },
+                    }
+                    require("dap-view").setup(dap_view_config)
                 end
                 break
             end

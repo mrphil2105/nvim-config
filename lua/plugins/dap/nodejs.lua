@@ -100,19 +100,20 @@ function M.setup()
     register_keymaps()
 end
 
-function M.setup_dapview()
+function M.setup_dap_view()
     ---@type dapview.Config
-    local dapview_config = {
+    local dap_view_config = {
         windows = {
             terminal = {
                 hide = { "pwa-node", "pwa-chrome" },
             },
         },
         winbar = {
-            sections = { "watches", "scopes", "exceptions", "breakpoints", "threads" },
+            sections = { "scopes", "watches", "exceptions", "breakpoints", "threads" },
+            default_section = "scopes",
         },
     }
-    require("dap-view").setup(dapview_config)
+    require("dap-view").setup(dap_view_config)
     require("dap").defaults.fallback.terminal_win_cmd = "tabnew"
 end
 
