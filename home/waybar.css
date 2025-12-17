@@ -1,0 +1,84 @@
+* {
+    font-family: '0xPropo', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#waybar {
+    /* background-color: #14191E; */
+    background: transparent;
+    color: #C8DCF0;
+    margin: 0 4px;
+}
+
+#tray,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#language,
+#workspaces,
+#pulseaudio,
+#network,
+#power-profiles-daemon,
+#battery,
+#backlight {
+    /* margin: 4px 0; */
+    margin: 4px 0 0 0;
+    padding: 0 8px;
+    background-color: #1E2328;
+    border: 1px solid #32373C;
+    border-radius: 4px;
+}
+
+#tray,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#language {
+    margin-left: 4px;
+}
+
+#pulseaudio,
+#network,
+#power-profiles-daemon,
+#battery,
+#backlight {
+    margin-right: 4px;
+}
+
+#workspaces button {
+    border: none;
+    border-radius: 0;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#workspaces button.active,
+#workspaces button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#pulseaudio.muted {
+    padding-left: 10px;
+    padding-right: 13px;
+}
+
+#network {
+    padding-left: 10px;
+    padding-right: 15px;
+}
+
+#power-profiles-daemon.performance {
+    padding-left: 11px;
+    padding-right: 13px;
+}
+
+#power-profiles-daemon.balanced {
+    padding-right: 16px;
+}
+
+#power-profiles-daemon.power-saver {
+    padding-left: 10px;
+    padding-right: 14px;
+}
