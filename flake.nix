@@ -21,21 +21,53 @@
       nix-index-database,
       ...
     }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+      hosts = {
+        mrphil2105-NixLaptop = {
+          host = "laptop";
+          user = "mrphil2105";
+        };
+        mrphil2105-NixDesktop = {
+          host = "desktop";
+          user = "mrphil2105";
+        };
+      };
+      mkNixos =
+        hostname: cfg:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./system/configuration.nix
+            ./system/hosts/${cfg.host}.nix
+          ];
+          specialArgs = {
+            inherit inputs;
+            host = cfg.host;
+          };
+        };
+      mkHome =
+        hostname: cfg:
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./home/home.nix
+            ./home/hosts/${cfg.host}.nix
+            nix-index-database.homeModules.nix-index
+            { programs.nix-index-database.comma.enable = true; }
+          ];
+          extraSpecialArgs = {
+            inherit inputs;
+            host = cfg.host;
+          };
+        };
+    in
     {
-      nixosConfigurations.mrphil2105-NixLaptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./system/configuration.nix
-        ];
-      };
-      homeConfigurations."mrphil2105@mrphil2105-NixLaptop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
-        modules = [
-          ./home/home.nix
-          nix-index-database.homeModules.nix-index
-          { programs.nix-index-database.comma.enable = true; }
-        ];
-        extraSpecialArgs = { inherit inputs; };
-      };
+      nixosConfigurations = nixpkgs.lib.mapAttrs mkNixos hosts;
+      homeConfigurations = nixpkgs.lib.mapAttrs' (hostname: cfg: {
+        name = "${cfg.user}@${hostname}";
+        value = mkHome hostname cfg;
+      }) hosts;
     };
 }

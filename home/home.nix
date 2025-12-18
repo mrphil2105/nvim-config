@@ -23,5 +23,4 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
   programs.home-manager.enable = true;
-  home.stateVersion = "25.11";
 }

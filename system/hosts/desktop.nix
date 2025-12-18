@@ -1,0 +1,19 @@
+{ config, ... }:
+let
+  _ = builtins.trace ">>> Setting up Nvidia driver..." null;
+in
+{
+  imports = [ ./desktop-hardware.nix ];
+  networking.hostName = "mrphil2105-NixDesktop";
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
+  };
+  services.xserver.videoDrivers = [ "nvidia" ];
+  programs.steam.enable = true;
+  system.stateVersion = "25.05";
+}
