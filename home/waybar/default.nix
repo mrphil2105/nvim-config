@@ -1,20 +1,20 @@
 { ... }:
 {
   imports = [
-    ./waybar/clock.nix
-    ./waybar/cpu.nix
-    ./waybar/memory.nix
-    ./waybar/temperature.nix
-    ./waybar/language.nix
-    ./waybar/pulseaudio.nix
-    ./waybar/network.nix
-    ./waybar/power.nix
-    ./waybar/battery.nix
-    ./waybar/backlight.nix
+    ./modules/clock.nix
+    ./modules/cpu.nix
+    ./modules/memory.nix
+    ./modules/temperature.nix
+    ./modules/language.nix
+    ./modules/pulseaudio.nix
+    ./modules/network.nix
+    ./modules/power.nix
+    ./modules/battery.nix
+    ./modules/backlight.nix
   ];
   programs.waybar = {
     enable = true;
-    style = ./waybar.css;
+    style = ./style.css;
     settings.main = {
       layer = "top";
       modules-left = [

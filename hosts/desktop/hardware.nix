@@ -1,6 +1,6 @@
 {
-  config,
   lib,
+  config,
   modulesPath,
   ...
 }:
@@ -10,47 +10,53 @@
   ];
   boot.initrd.availableKernelModules = [
     "nvme"
+    "ahci"
     "xhci_pci"
-    "thunderbolt"
     "usb_storage"
+    "usbhid"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [
-    "dm-snapshot"
-    "cryptd"
-  ];
-  boot.initrd.luks.devices."cryptlvm".device = "/dev/disk/by-label/NIXOS_LUKS";
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
   fileSystems."/" = {
-    device = "/dev/disk/by-label/NIXOS_ROOT";
+    device = "/dev/disk/by-label/NIXOS-ROOT";
     fsType = "ext4";
   };
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/NIXOS_BOOT";
+    device = "/dev/disk/by-label/NIXOS-BOOT";
     fsType = "vfat";
     options = [
-      "fmask=0077"
-      "dmask=0077"
+      "fmask=0022"
+      "dmask=0022"
     ];
   };
   fileSystems."/nix" = {
-    device = "/dev/disk/by-label/NIXOS_NIX";
+    device = "/dev/disk/by-label/NIXOS-NIX";
     fsType = "ext4";
   };
   fileSystems."/var/lib/docker" = {
-    device = "/dev/disk/by-label/NIXOS_DOCKER";
+    device = "/dev/disk/by-label/NIXOS-DOCKER";
     fsType = "ext4";
   };
   fileSystems."/home" = {
-    device = "/dev/disk/by-label/NIXOS_HOME";
+    device = "/dev/disk/by-label/NIXOS-HOME";
     fsType = "ext4";
   };
-  swapDevices = [
-    { device = "/dev/disk/by-label/NIXOS_SWAP"; }
-  ];
+  fileSystems."/mnt/games" = {
+    device = "/dev/disk/by-label/Games";
+    fsType = "ntfs";
+    options = [
+      "uid=1000"
+      "gid=100"
+      "rw"
+      "user"
+      "exec"
+      "umask=000"
+    ];
+  };
+  swapDevices = [ ];
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.enableAllFirmware = true;
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -21,21 +21,43 @@
       nix-index-database,
       ...
     }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+      hosts = {
+        mrphil2105-NixLaptop = "laptop";
+        mrphil2105-NixDesktop = "desktop";
+      };
+      mkNixos =
+        hostname: host:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [ ./hosts/${host}/configuration.nix ];
+          specialArgs = {
+            inherit inputs;
+            inherit host;
+          };
+        };
+      mkHome =
+        hostname: host:
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./hosts/${host}/home.nix
+            nix-index-database.homeModules.nix-index
+            { programs.nix-index-database.comma.enable = true; }
+          ];
+          extraSpecialArgs = {
+            inherit inputs;
+            inherit host;
+          };
+        };
+    in
     {
-      nixosConfigurations.mrphil2105-NixLaptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./system/configuration.nix
-        ];
-      };
-      homeConfigurations."mrphil2105@mrphil2105-NixLaptop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
-        modules = [
-          ./home/home.nix
-          nix-index-database.homeModules.nix-index
-          { programs.nix-index-database.comma.enable = true; }
-        ];
-        extraSpecialArgs = { inherit inputs; };
-      };
+      nixosConfigurations = nixpkgs.lib.mapAttrs mkNixos hosts;
+      homeConfigurations = nixpkgs.lib.mapAttrs' (hostname: host: {
+        name = "mrphil2105@${hostname}";
+        value = mkHome hostname host;
+      }) hosts;
     };
 }

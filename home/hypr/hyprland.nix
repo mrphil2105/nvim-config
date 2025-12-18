@@ -11,12 +11,9 @@
       "$menu" = "walker";
       "$browser" = "firefox";
       "$lockScreen" = "hyprlock";
-      monitor = [
-        "eDP-1, 1920x1200, 0x0, 1"
-      ];
       exec-once = [
         "hyprctl setcursor capitaine-cursors 32"
-        "waybar & ferdium & $terminal & firefox & discord --start-minimized &"
+        "waybar & ferdium & $terminal & firefox &"
       ];
       env = [
         "XCURSOR_SIZE,32"
@@ -68,18 +65,6 @@
           "workspacesOut, 1, 2.5, easeOutQuint, slide"
         ];
       };
-      workspace = [
-        "1, monitor:eDP-1"
-        "2, monitor:eDP-1"
-        "3, monitor:eDP-1"
-        "4, monitor:eDP-1"
-        "5, monitor:eDP-1"
-        "6, monitor:eDP-1"
-        "7, monitor:eDP-1"
-        "8, monitor:eDP-1"
-        "9, monitor:eDP-1"
-        "10, monitor:eDP-1"
-      ];
       dwindle = {
         pseudotile = true;
         preserve_split = true;
@@ -89,10 +74,12 @@
       };
       misc = {
         force_default_wallpaper = 1;
+        enable_anr_dialog = false;
       };
       input = {
         kb_layout = "us,dk";
         kb_options = "caps:escape,grp:win_space_toggle";
+        accel_profile = "flat";
       };
       "$mainMod" = "SUPER";
       bind = [
@@ -164,12 +151,12 @@
         "$mainMod, mouse:273, movewindow"
       ];
       bindel = [
-        ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ",XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
-        ",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ", XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
+        ", XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
       ];
       bindl = [
         ", switch:Lid Switch, exec, hyprlock"
@@ -189,9 +176,7 @@
         "workspace 3, class:firefox"
         "workspace 4, class:Yazi"
         "workspace 5, class:Ferdium"
-        "workspace 6, class:discord"
         "workspace 7, class:Bitwarden"
-        "workspace 7, class:Spotify"
       ];
     };
   };
