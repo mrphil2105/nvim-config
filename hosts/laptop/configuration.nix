@@ -1,6 +1,9 @@
 { ... }:
 {
-  imports = [ ./laptop-hardware.nix ];
+  imports = [
+    ./hardware.nix
+    ../../system
+  ];
   networking.hostName = "mrphil2105-NixLaptop";
   services.power-profiles-daemon.enable = true;
   services.openvpn.servers = {

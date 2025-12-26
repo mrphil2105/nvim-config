@@ -50,7 +50,7 @@
     bruno
     chromium
     dbeaver-bin
-    jetbrains.pycharm-professional
+    jetbrains.pycharm
     python3
 
     # Fonts

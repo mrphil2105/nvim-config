@@ -25,49 +25,39 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       hosts = {
-        mrphil2105-NixLaptop = {
-          host = "laptop";
-          user = "mrphil2105";
-        };
-        mrphil2105-NixDesktop = {
-          host = "desktop";
-          user = "mrphil2105";
-        };
+        mrphil2105-NixLaptop = "laptop";
+        mrphil2105-NixDesktop = "desktop";
       };
       mkNixos =
-        hostname: cfg:
+        hostname: host:
         nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [
-            ./system/configuration.nix
-            ./system/hosts/${cfg.host}.nix
-          ];
+          modules = [ ./hosts/${host}/configuration.nix ];
           specialArgs = {
             inherit inputs;
-            host = cfg.host;
+            inherit host;
           };
         };
       mkHome =
-        hostname: cfg:
+        hostname: host:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
-            ./home/home.nix
-            ./home/hosts/${cfg.host}.nix
+            ./hosts/${host}/home.nix
             nix-index-database.homeModules.nix-index
             { programs.nix-index-database.comma.enable = true; }
           ];
           extraSpecialArgs = {
             inherit inputs;
-            host = cfg.host;
+            inherit host;
           };
         };
     in
     {
       nixosConfigurations = nixpkgs.lib.mapAttrs mkNixos hosts;
-      homeConfigurations = nixpkgs.lib.mapAttrs' (hostname: cfg: {
-        name = "${cfg.user}@${hostname}";
-        value = mkHome hostname cfg;
+      homeConfigurations = nixpkgs.lib.mapAttrs' (hostname: host: {
+        name = "mrphil2105@${hostname}";
+        value = mkHome hostname host;
       }) hosts;
     };
 }

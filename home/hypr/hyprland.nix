@@ -1,8 +1,4 @@
-{ lib, host, ... }:
-let
-  isLaptop = host == "laptop";
-  isDesktop = host == "desktop";
-in
+{ ... }:
 {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -15,26 +11,13 @@ in
       "$menu" = "walker";
       "$browser" = "firefox";
       "$lockScreen" = "hyprlock";
-      monitor =
-        [ ]
-        ++ lib.optionals isLaptop [
-          "eDP-1, 1920x1200, 0x0, 1"
-        ]
-        ++ lib.optionals isDesktop [
-          "DP-6, 2560x1440, 0x0, 1"
-          "HDMI-A-2, 1920x1080, 2560x360, 1"
-        ];
       exec-once = [
         "hyprctl setcursor capitaine-cursors 32"
-        "waybar & ferdium & $terminal & firefox & discord --start-minimized &"
+        "waybar & ferdium & $terminal & firefox &"
       ];
       env = [
         "XCURSOR_SIZE,32"
         "HYPRCURSOR_SIZE,32"
-      ]
-      ++ lib.optionals isDesktop [
-        "LIBVA_DRIVER_NAME,nvidia"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
       ];
       general = {
         gaps_in = 2;
@@ -82,37 +65,6 @@ in
           "workspacesOut, 1, 2.5, easeOutQuint, slide"
         ];
       };
-      workspace =
-        [ ]
-        ++ lib.optionals isLaptop [
-          "1, monitor:eDP-1"
-          "2, monitor:eDP-1"
-          "3, monitor:eDP-1"
-          "4, monitor:eDP-1"
-          "5, monitor:eDP-1"
-          "6, monitor:eDP-1"
-          "7, monitor:eDP-1"
-          "8, monitor:eDP-1"
-          "9, monitor:eDP-1"
-          "10, monitor:eDP-1"
-        ]
-        ++ lib.optionals isDesktop [
-          "1, monitor:DP-6"
-          "2, monitor:DP-6"
-          "3, monitor:DP-6"
-          "4, monitor:DP-6"
-          "5, monitor:DP-6"
-          "6, monitor:DP-6"
-          "7, monitor:DP-6"
-          "8, monitor:DP-6"
-          "9, monitor:DP-6"
-          "10, monitor:DP-6"
-          "11, monitor:HDMI-A-2"
-          "12, monitor:HDMI-A-2"
-          "13, monitor:HDMI-A-2"
-          "14, monitor:HDMI-A-2"
-          "15, monitor:HDMI-A-2"
-        ];
       dwindle = {
         pseudotile = true;
         preserve_split = true;
@@ -122,10 +74,12 @@ in
       };
       misc = {
         force_default_wallpaper = 1;
+        enable_anr_dialog = false;
       };
       input = {
         kb_layout = "us,dk";
         kb_options = "caps:escape,grp:win_space_toggle";
+        accel_profile = "flat";
       };
       "$mainMod" = "SUPER";
       bind = [
@@ -197,12 +151,12 @@ in
         "$mainMod, mouse:273, movewindow"
       ];
       bindel = [
-        ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ",XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
-        ",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ", XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
+        ", XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
       ];
       bindl = [
         ", switch:Lid Switch, exec, hyprlock"
@@ -222,9 +176,7 @@ in
         "workspace 3, class:firefox"
         "workspace 4, class:Yazi"
         "workspace 5, class:Ferdium"
-        "workspace 6, class:discord"
         "workspace 7, class:Bitwarden"
-        "workspace 7, class:Spotify"
       ];
     };
   };

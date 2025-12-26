@@ -1,9 +1,9 @@
 { config, ... }:
-let
-  _ = builtins.trace ">>> Setting up Nvidia driver..." null;
-in
 {
-  imports = [ ./desktop-hardware.nix ];
+  imports = [
+    ./hardware.nix
+    ../../system
+  ];
   networking.hostName = "mrphil2105-NixDesktop";
   hardware.nvidia = {
     modesetting.enable = true;
