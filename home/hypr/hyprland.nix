@@ -8,6 +8,7 @@
     settings = {
       "$terminal" = "alacritty";
       "$fileManager" = "alacritty --class Yazi -e yazi";
+      "$audioMixer" = "alacritty --class wiremix -e wiremix";
       "$menu" = "walker";
       "$browser" = "firefox";
       "$lockScreen" = "hyprlock";
@@ -87,6 +88,7 @@
         "$mainMod, C, killactive,"
         "$mainMod, M, exit,"
         "$mainMod, E, exec, $fileManager"
+        "$mainMod, A, exec, $audioMixer"
         "$mainMod, V, togglefloating,"
         "$mainMod, R, exec, $menu"
         "$mainMod, P, pseudo, # dwindle"
