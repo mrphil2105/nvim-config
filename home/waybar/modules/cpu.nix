@@ -1,7 +1,5 @@
 { ... }:
 {
-  programs.waybar.settings.main.cpu = {
-    format = "  {}%";
-    interval = 5;
-  };
+  programs.waybar.settings.main.cpu.format = "  {}%";
+  programs.waybar.settings.main.cpu.interval = 5;
 }

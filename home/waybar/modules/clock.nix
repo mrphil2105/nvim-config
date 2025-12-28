@@ -1,6 +1,4 @@
 { ... }:
 {
-  programs.waybar.settings.main.clock = {
-    tooltip-format = "{:%d-%m-%Y}";
-  };
+  programs.waybar.settings.main.clock.tooltip-format = "{:%d-%m-%Y}";
 }
