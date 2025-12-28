@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./bash.nix
+    ./zsh.nix
     ./packages.nix
     ./cursor.nix
     ./hypr
@@ -12,7 +12,5 @@
   home.homeDirectory = "/home/mrphil2105";
   programs.home-manager.enable = true;
   programs.firefox.enable = true;
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
   programs.tmux.enable = true;
 }

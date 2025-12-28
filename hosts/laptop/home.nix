@@ -25,9 +25,9 @@
       "workspace 7, class:Spotify"
     ];
   };
-  programs.bash.bashrcExtra = ''
-    alias startvpn="sudo systemctl start openvpn-router.service"
-    alias stopvpn="sudo systemctl stop openvpn-router.service"
-  '';
+  programs.zsh.shellAliases = {
+    startvpn = "sudo systemctl start openvpn-router.service";
+    stopvpn = "sudo systemctl stop openvpn-router.service";
+  };
   home.stateVersion = "25.11";
 }
