@@ -7,5 +7,6 @@
     ./alacritty.nix
     ./walker.nix
     ./vscode.nix
+    ./pycharm.nix
   ];
 }

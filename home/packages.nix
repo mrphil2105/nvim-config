@@ -50,15 +50,11 @@
     bruno
     chromium
     dbeaver-bin
-    jetbrains.pycharm
     python3
 
     # Fonts
     _0xpropo
     jetbrains-mono
     nerd-fonts.jetbrains-mono
-
-    winePackages.staging
-    protobuf
   ];
 }
