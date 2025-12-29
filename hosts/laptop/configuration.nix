@@ -18,5 +18,6 @@
       patches = attrs.patches ++ [ ./eduroam.patch ];
     });
   };
+  hardware.logitech.wireless.enable = true;
   system.stateVersion = "25.11";
 }
