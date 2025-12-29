@@ -51,10 +51,5 @@
     chromium
     dbeaver-bin
     python3
-
-    # Fonts
-    _0xpropo
-    jetbrains-mono
-    nerd-fonts.jetbrains-mono
   ];
 }

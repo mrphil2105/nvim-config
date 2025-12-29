@@ -9,6 +9,7 @@
     ./auth.nix
     ./users.nix
     ./packages.nix
+    ./fonts.nix
   ];
   nix.settings.experimental-features = [
     "nix-command"
