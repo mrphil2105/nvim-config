@@ -1,6 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [ ../../home ];
+  home.packages = with pkgs; [
+    prismlauncher
+    satisfactorymodmanager
+  ];
   wayland.windowManager.hyprland.settings = {
     monitor = [
       "DP-6, 2560x1440@144, 0x0, 1"
