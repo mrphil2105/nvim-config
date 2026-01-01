@@ -24,7 +24,7 @@
       "15, monitor:HDMI-A-2"
     ];
     exec-once = [
-      "discord &"
+      "discord & spotify & steam -silent &"
     ];
     windowrule = [
       "workspace 6, class:steam"
