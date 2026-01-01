@@ -13,4 +13,5 @@
   programs.home-manager.enable = true;
   programs.firefox.enable = true;
   programs.tmux.enable = true;
+  programs.bat.enable = true;
 }
