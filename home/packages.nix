@@ -9,6 +9,7 @@
     gptfdisk
     jq
     net-tools
+    p7zip
     pciutils
     playerctl
     rclone
@@ -32,6 +33,7 @@
 
     # Desktop applications
     bitwarden-desktop
+    brave
     discord
     ferdium
     gimp3
