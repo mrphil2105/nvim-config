@@ -32,14 +32,12 @@
       "discord & spotify & steam -silent &"
     ];
     windowrule = [
-      "workspace 6, class:steam"
-      "workspace 14, class:discord"
-      "workspace 15, class:Spotify"
-    ];
-    windowrulev2 = [
-      "monitor DP-6, class:^steam_app_\\d+$"
-      "fullscreen, class:^steam_app_\\d+$"
-      "workspace 10, class:^steam_app_\\d+$"
+      "match:class steam, workspace 6"
+      "match:class discord, workspace 14"
+      "match:class Spotify, workspace 15"
+      "match:class ^steam_app_\\d+$, monitor DP-6"
+      "match:class ^steam_app_\\d+$, fullscreen on"
+      "match:class ^steam_app_\\d+$, workspace 10"
     ];
     env = [
       "LIBVA_DRIVER_NAME,nvidia"

@@ -170,15 +170,15 @@
         ", XF86AudioPrev, exec, playerctl previous"
       ];
       windowrule = [
-        "suppressevent maximize, class:.*"
+        "match:class .*, suppress_event maximize"
         # Fix some dragging issues with XWayland
-        "nofocus, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0"
+        "match:class ^$, match:title ^$, match:xwayland true, match:float true, match:fullscreen false, match:pin false, no_focus on"
         # Fix flickering issues when hovering tooltips
-        "noinitialfocus, class:(jetbrains-pycharm), title:^win.*"
-        "workspace 3, class:firefox"
-        "workspace 4, class:Yazi"
-        "workspace 5, class:Ferdium"
-        "workspace 7, class:Bitwarden"
+        "match:class jetbrains-pycharm, match:title ^win.*, no_initial_focus on"
+        "match:class firefox, workspace 3"
+        "match:class Yazi, workspace 4"
+        "match:class Ferdium, workspace 5"
+        "match:class Bitwarden, workspace 7"
       ];
     };
   };

@@ -22,8 +22,8 @@
       "discord --start-minimized &"
     ];
     windowrule = [
-      "workspace 6, class:discord"
-      "workspace 7, class:Spotify"
+      "match:class discord, workspace 6"
+      "match:class Spotify, workspace 7"
     ];
   };
   programs.zsh.shellAliases = {
