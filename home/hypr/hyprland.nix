@@ -1,4 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
+let
+  switchLayoutFile = pkgs.writeShellScript "switch-layout.sh" (builtins.readFile ./switch-layout.sh);
+in
 {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -21,6 +24,7 @@
         "HYPRCURSOR_SIZE,32"
       ];
       general = {
+        layout = "master";
         gaps_in = 2;
         gaps_out = 4;
         border_size = 1;
@@ -70,9 +74,6 @@
         pseudotile = true;
         preserve_split = true;
       };
-      master = {
-        new_status = "master";
-      };
       misc = {
         force_default_wallpaper = 1;
         enable_anr_dialog = false;
@@ -84,18 +85,25 @@
       };
       "$mainMod" = "SUPER";
       bind = [
-        "$mainMod, Q, exec, $terminal"
         "$mainMod, C, killactive,"
         "$mainMod, M, exit,"
+        "$mainMod, F, fullscreen"
+        "$mainMod, V, togglefloating,"
+
+        "$mainMod, Q, exec, $terminal"
+        "$mainMod, R, exec, $menu"
+        "$mainMod, B, exec, $browser"
         "$mainMod, E, exec, $fileManager"
         "$mainMod, A, exec, $audioMixer"
-        "$mainMod, V, togglefloating,"
-        "$mainMod, R, exec, $menu"
-        "$mainMod, P, pseudo, # dwindle"
-        "$mainMod, S, togglesplit, # dwindle"
-        "$mainMod, B, exec, $browser"
-        "$mainMod, F, fullscreen"
+        "$mainMod, D, exec, ${switchLayoutFile}"
         "$mainMod, Escape, exec, $lockScreen"
+
+        "$mainMod, S, layoutmsg, swapwithmaster # master"
+        "$mainMod, N, layoutmsg, cyclenext # master"
+        "$mainMod, P, layoutmsg, cycleprev # master"
+        "$mainMod SHIFT, N, layoutmsg, swapnext # master"
+        "$mainMod SHIFT, P, layoutmsg, swapprev # master"
+        "$mainMod, S, layoutmsg, togglesplit # dwindle"
 
         "$mainMod, H, movefocus, l"
         "$mainMod, L, movefocus, r"
