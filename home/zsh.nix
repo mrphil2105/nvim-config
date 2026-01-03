@@ -47,6 +47,8 @@ in
     oh-my-zsh.enable = true;
     oh-my-zsh.plugins = [ "git" ];
   };
+  programs.zoxide.enable = true;
+  programs.zoxide.enableZshIntegration = true;
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
