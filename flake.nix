@@ -34,8 +34,7 @@
           inherit system;
           modules = [ ./hosts/${host}/configuration.nix ];
           specialArgs = {
-            inherit inputs;
-            inherit host;
+            inherit inputs host;
           };
         };
       mkHome =
@@ -48,8 +47,7 @@
             { programs.nix-index-database.comma.enable = true; }
           ];
           extraSpecialArgs = {
-            inherit inputs;
-            inherit host;
+            inherit inputs host;
           };
         };
     in
