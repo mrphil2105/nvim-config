@@ -45,6 +45,7 @@ end
 return {
     "igorlfs/nvim-dap-view",
     dependencies = { "mfussenegger/nvim-dap" },
+    lazy = false,
     config = function()
         local configs = { "cpp", "dotnet", "rust", "nodejs" }
         for _, config in ipairs(configs) do
