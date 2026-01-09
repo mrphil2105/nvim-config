@@ -20,6 +20,7 @@
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  boot.loader.systemd-boot.consoleMode = "max";
   boot.loader.systemd-boot.extraInstallCommands = ''
     if [ -d /mnt/windows-esp/EFI/Microsoft ]; then
       ${pkgs.coreutils}/bin/rm -rf /boot/EFI/Microsoft
