@@ -9,6 +9,7 @@
     gptfdisk
     jq
     net-tools
+    ouch
     p7zip
     pciutils
     playerctl
