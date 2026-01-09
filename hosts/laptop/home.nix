@@ -19,10 +19,10 @@
       "10, monitor:eDP-1"
     ];
     exec-once = [
-      "discord --start-minimized &"
+      "vesktop --ozone-platform=wayland --start-minimized &"
     ];
     windowrule = [
-      "match:class discord, workspace 6"
+      "match:class vesktop, workspace 6"
       "match:class Spotify, workspace 7"
     ];
   };

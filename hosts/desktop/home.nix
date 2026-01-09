@@ -29,11 +29,11 @@
       "15, monitor:HDMI-A-2"
     ];
     exec-once = [
-      "discord & spotify & steam -silent &"
+      "vesktop --ozone-platform=wayland & spotify & steam -silent &"
     ];
     windowrule = [
       "match:class steam, workspace 6"
-      "match:class discord, workspace 14"
+      "match:class vesktop, workspace 14"
       "match:class Spotify, workspace 15"
       "match:class ^steam_app_\\d+$, monitor DP-6"
       "match:class ^steam_app_\\d+$, fullscreen on"

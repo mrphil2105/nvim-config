@@ -34,7 +34,6 @@
     # Desktop applications
     bitwarden-desktop
     brave
-    discord
     ferdium
     gimp3
     kdePackages.okular
@@ -44,6 +43,7 @@
     signal-desktop-bin
     slack
     spotify
+    vesktop
     vlc
     yubioath-flutter
     zoom-us
