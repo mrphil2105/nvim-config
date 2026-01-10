@@ -18,9 +18,9 @@ in
       }
     '';
     shellAliases = {
-      hms = "home-manager switch --flake .";
-      nrs = "sudo nixos-rebuild switch --flake .";
-      nrt = "sudo nixos-rebuild test --flake .";
+      hms = "home-manager switch --flake ~/.nixos";
+      nrs = "sudo nixos-rebuild switch --flake ~/.nixos";
+      nrt = "sudo nixos-rebuild test --flake ~/.nixos";
       v = "nvim";
       s = "systemctl suspend";
       sl = "nohup hyprlock >/dev/null 2>&1 & sleep 0.3 && systemctl suspend";
