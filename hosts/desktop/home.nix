@@ -38,11 +38,14 @@
       "match:class ^steam_app_\\d+$, monitor DP-6"
       "match:class ^steam_app_\\d+$, fullscreen on"
       "match:class ^steam_app_\\d+$, workspace 10"
+      "match:class ^steam_app_\\d+$, content game"
     ];
     env = [
       "LIBVA_DRIVER_NAME,nvidia"
       "__GLX_VENDOR_LIBRARY_NAME,nvidia"
     ];
+    general.allow_tearing = true;
+    misc.vrr = 3;
   };
   home.stateVersion = "25.05";
 }
