@@ -1,9 +1,10 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./hardware.nix
     ../../system
   ];
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   networking.hostName = "mrphil2105-NixDesktop";
   hardware.nvidia = {
     modesetting.enable = true;
