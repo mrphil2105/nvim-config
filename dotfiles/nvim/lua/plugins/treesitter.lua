@@ -40,6 +40,7 @@ return {
             "regex",
             "sql",
             "dockerfile",
+            "markdown",
             "latex",
         }
         vim.api.nvim_create_autocmd("FileType", {
