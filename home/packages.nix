@@ -41,9 +41,11 @@
     krita
     libreoffice-qt-fresh
     megasync
+    mpv
     signal-desktop-bin
     slack
     spotify
+    tor-browser
     vesktop
     vlc
     yubioath-flutter

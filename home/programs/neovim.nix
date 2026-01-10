@@ -10,7 +10,7 @@
       lua-language-server
       nixd
       stylua
-      nixfmt-rfc-style
+      nixfmt
       clang-tools
       rust-analyzer
       vscode-langservers-extracted
