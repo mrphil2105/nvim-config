@@ -15,5 +15,6 @@
   };
   services.xserver.videoDrivers = [ "nvidia" ];
   programs.steam.enable = true;
+  programs.steam.extraCompatPackages = [ pkgs.proton-ge-bin ];
   system.stateVersion = "25.05";
 }
