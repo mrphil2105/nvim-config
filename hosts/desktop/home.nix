@@ -2,6 +2,7 @@
 {
   imports = [ ../../home ];
   home.packages = with pkgs; [
+    mangohud
     nvtopPackages.nvidia
     prismlauncher
     satisfactorymodmanager
@@ -35,10 +36,10 @@
       "match:class steam, workspace 6"
       "match:class vesktop, workspace 14"
       "match:class Spotify, workspace 15"
-      "match:class ^steam_app_\\d+$, monitor DP-6"
-      "match:class ^steam_app_\\d+$, fullscreen on"
-      "match:class ^steam_app_\\d+$, workspace 10"
-      "match:class ^steam_app_\\d+$, content game"
+      "match:class ^(steam_app_\\d+|gamescope)$, monitor DP-6"
+      "match:class ^(steam_app_\\d+|gamescope)$, fullscreen on"
+      "match:class ^(steam_app_\\d+|gamescope)$, workspace 10"
+      "match:class ^(steam_app_\\d+|gamescope)$, content game"
     ];
     env = [
       "LIBVA_DRIVER_NAME,nvidia"

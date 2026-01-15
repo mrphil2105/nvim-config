@@ -14,5 +14,6 @@
     defaultSession = "hyprland";
   };
   hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
   console.useXkbConfig = true;
 }
