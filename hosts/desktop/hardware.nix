@@ -65,7 +65,10 @@
       "rw"
       "user"
       "exec"
-      "umask=000"
+      "umask=077"
+      "windows_names"
+      "noatime"
+      "prealloc"
     ];
   };
   fileSystems."/mnt/windows-esp" = {
