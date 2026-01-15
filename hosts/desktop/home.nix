@@ -6,6 +6,7 @@
     nvtopPackages.nvidia
     prismlauncher
     satisfactorymodmanager
+    wootility
   ];
   wayland.windowManager.hyprland.settings = {
     monitor = [
