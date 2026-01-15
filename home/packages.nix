@@ -9,6 +9,7 @@
     gptfdisk
     jq
     net-tools
+    npins
     ouch
     p7zip
     pciutils
