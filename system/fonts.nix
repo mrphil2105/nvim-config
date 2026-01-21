@@ -11,5 +11,8 @@
       noto-fonts-color-emoji
     ];
     fontconfig.useEmbeddedBitmaps = true;
+    fontconfig.defaultFonts = {
+      monospace = [ "JetBrainsMono Nerd Font" ];
+    };
   };
 }
