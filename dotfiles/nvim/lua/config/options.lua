@@ -1,5 +1,6 @@
 vim.opt.number = true -- Line numbers
 vim.opt.relativenumber = true -- Relative line numbers
+vim.opt.cursorline = true -- Highlight current line
 vim.opt.scrolloff = 5 -- Lines above and below cursor
 
 vim.o.expandtab = true -- Spaces for indentation
