@@ -17,5 +17,10 @@
     # Disable explicit sync because it does not work with Nvidia
     patches = old.patches ++ [ ./gamescope.patch ];
   });
+  services.ananicy = {
+    enable = true;
+    package = pkgs.ananicy-cpp;
+    rulesProvider = pkgs.ananicy-rules-cachyos;
+  };
   system.stateVersion = "25.05";
 }
