@@ -11,7 +11,7 @@ in
     settings = {
       "$terminal" = "alacritty";
       "$fileManager" = "alacritty --class Yazi -e yazi";
-      "$audioMixer" = "alacritty --class wiremix -e wiremix";
+      "$audioMixer" = "alacritty --class wiremix -e wiremix --tab output";
       "$menu" = "walker";
       "$browser" = "firefox";
       "$lockScreen" = "hyprlock";
