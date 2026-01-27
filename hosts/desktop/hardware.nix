@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   modulesPath,
   ...
 }:
@@ -20,18 +19,6 @@
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-  boot.loader.systemd-boot.consoleMode = "max";
-  boot.loader.systemd-boot.extraInstallCommands = ''
-    if [ -d /mnt/windows-esp/EFI/Microsoft ]; then
-      ${pkgs.coreutils}/bin/rm -rf /boot/EFI/Microsoft
-      ${pkgs.coreutils}/bin/cp -r /mnt/windows-esp/EFI/Microsoft /boot/EFI/
-    fi
-  '';
-  boot.loader.systemd-boot.extraEntries."windows.conf" = ''
-    title   Windows 11
-    efi     /EFI/Microsoft/Boot/bootmgfw.efi
-    sort-key 00-windows
-  '';
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS-ROOT";
     fsType = "ext4";
@@ -69,15 +56,6 @@
       "windows_names"
       "noatime"
       "prealloc"
-    ];
-  };
-  fileSystems."/mnt/windows-esp" = {
-    device = "/dev/disk/by-partuuid/1b1ae122-13f6-4e45-b207-577448758e16";
-    fsType = "vfat";
-    options = [
-      "nofail"
-      "x-systemd.automount"
-      "umask=0077"
     ];
   };
   swapDevices = [ ];
