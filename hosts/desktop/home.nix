@@ -2,12 +2,17 @@
 {
   imports = [ ../../home ];
   home.packages = with pkgs; [
-    mangohud
     nvtopPackages.nvidia
     prismlauncher
     satisfactorymodmanager
     wootility
   ];
+  programs.mangohud.enable = true;
+  programs.mangohud.settings = {
+    preset = "1,-1,0,2,3,4";
+    font_size = 18;
+    hud_no_margin = true;
+  };
   wayland.windowManager.hyprland.settings = {
     monitor = [
       "DP-6, 2560x1440@144, 0x0, 1"
