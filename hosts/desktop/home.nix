@@ -37,10 +37,10 @@
       "match:class steam, workspace 6"
       "match:class vesktop, workspace 14"
       "match:class Spotify, workspace 15"
-      "match:class ^(steam_app_\\d+|gamescope)$, monitor DP-6"
-      "match:class ^(steam_app_\\d+|gamescope)$, fullscreen on"
-      "match:class ^(steam_app_\\d+|gamescope)$, workspace 10"
-      "match:class ^(steam_app_\\d+|gamescope)$, content game"
+      "match:class ^(steam_app_\\d+|gamescope|cs2)$, monitor DP-6"
+      "match:class ^(steam_app_\\d+|gamescope|cs2)$, fullscreen on"
+      "match:class ^(steam_app_\\d+|gamescope|cs2)$, workspace 10"
+      "match:class ^(steam_app_\\d+|gamescope|cs2)$, content game"
     ];
     env = [
       "LIBVA_DRIVER_NAME,nvidia"
