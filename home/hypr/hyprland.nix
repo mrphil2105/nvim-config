@@ -156,6 +156,12 @@ in
         "$mainMod, PRINT, exec, hyprshot -m window --clipboard-only"
         "$mainMod SHIFT, PRINT, exec, hyprshot -m region --clipboard-only"
       ];
+      binde = [
+        "$mainMod CONTROL, H, resizeactive, -50 0"
+        "$mainMod CONTROL, L, resizeactive, 50 0"
+        "$mainMod CONTROL, K, resizeactive, 0 -30"
+        "$mainMod CONTROL, J, resizeactive, 0 30"
+      ];
       bindm = [
         "$mainMod, mouse:272, resizewindow"
         "$mainMod, mouse:273, movewindow"
