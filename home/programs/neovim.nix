@@ -1,4 +1,15 @@
 { config, pkgs, ... }:
+let
+  nvimFiles = [
+    "lua/config"
+    "lua/plugins"
+    "lua/utils"
+    "init.lua"
+    "lazy-lock.json"
+    "stylua.toml"
+  ];
+  dotfilesDir = "${config.home.homeDirectory}/.nixos/dotfiles/nvim";
+in
 {
   programs.neovim = {
     enable = true;
@@ -30,6 +41,16 @@
       ps.xml2lua
     ];
   };
-  home.file.".config/nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos/dotfiles/nvim";
+  xdg.configFile =
+    (builtins.listToAttrs (
+      map (fileName: {
+        name = "nvim/${fileName}";
+        value = {
+          source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/${fileName}";
+        };
+      }) nvimFiles
+    ))
+    // {
+      "nvim/lua/hm-generated.lua".text = config.programs.neovim.initLua;
+    };
 }
