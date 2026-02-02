@@ -4,6 +4,7 @@ return {
     opts = {
         options = { theme = "tokyonight" },
         sections = {
+            lualine_b = { "diff", "diagnostics" },
             lualine_c = { { "filename", path = 1 } },
         },
     },
