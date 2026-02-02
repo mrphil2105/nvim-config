@@ -4,18 +4,19 @@
     enable = true;
     defaultEditor = true;
     extraPackages = with pkgs; [
-      tree-sitter
-      gcc # For Treesitter grammar compilation
-      nodejs_22 # For Copilot
-      lua-language-server
-      nixd
-      stylua
-      nixfmt
       clang-tools
-      rust-analyzer
-      vscode-langservers-extracted
-      vscode-extensions.vadimcn.vscode-lldb
+      gcc # For Treesitter grammar compilation
+      lua-language-server
       netcoredbg
+      nixd
+      nixfmt
+      nodejs_22 # For Copilot
+      rust-analyzer
+      stylua
+      tree-sitter
+      typescript-go
+      vscode-extensions.vadimcn.vscode-lldb
+      vscode-langservers-extracted
       (python3.withPackages (
         ps: with ps; [
           python-lsp-server

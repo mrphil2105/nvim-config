@@ -1,12 +1,8 @@
 return {
     lua_ls = {
         Lua = {
-            workspace = {
-                checkThirdParty = "Disable",
-            },
-            diagnostics = {
-                globals = { "vim" },
-            },
+            workspace = { checkThirdParty = "Disable" },
+            diagnostics = { globals = { "vim" } },
         },
     },
     nixd = {},
@@ -23,6 +19,7 @@ return {
     },
     rust_analyzer = {},
     pylsp = {},
+    tsgo = { cmd = { "tsgo", "--lsp", "--stdio" } },
     biome = {},
     cssls = {},
 }
