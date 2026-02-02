@@ -26,7 +26,6 @@
   "roslyn.nvim": { "branch": "main", "commit": "4ce6030c82c40b2bee1b6ce1292121ef8354f3a6" },
   "rzls.nvim": { "branch": "main", "commit": "2c754a8002af71c8679ed171bf715c562737a38c" },
   "snacks.nvim": { "branch": "main", "commit": "fe7cfe9800a182274d0f868a74b7263b8c0c020b" },
-  "toggleterm.nvim": { "branch": "main", "commit": "9a88eae817ef395952e08650b3283726786fb5fb" },
   "tokyonight.nvim": { "branch": "main", "commit": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
   "typescript-tools.nvim": { "branch": "master", "commit": "c2f5910074103705661e9651aa841e0d7eea9932" },
