@@ -12,5 +12,6 @@
   programs.lazygit.settings = {
     git.autoForwardBranches = "none";
     git.autoFetch = false;
+    git.autoStageResolvedConflicts = false;
   };
 }
