@@ -46,6 +46,20 @@ local function register_keymaps()
     end, { desc = "Stop All" })
 end
 
+local function clean_dap_config(config)
+    if config.type == "chrome" then
+        config.userDataDir = "${workspaceFolder}/.chromium-user-data"
+        config.skipFiles = { "<node_internals>/**", "node_modules/**", "**/node_modules/**" }
+        config.runtimeExecutable = nil
+    end
+    if config.type == "node" then
+        config.console = "integratedTerminal"
+        config.skipFiles = { "<node_internals>/**", "node_modules/**", "**/node_modules/**" }
+    end
+    config.protocol = "inspector"
+    config.type = "pwa-" .. config.type
+end
+
 function M.setup()
     if not M.enabled() then return end
     local js_dap_path = os.getenv(js_dap_env_var)
@@ -54,48 +68,27 @@ function M.setup()
         vim.schedule(function() vim.api.nvim_echo({ { err_msg } }, false, { err = true }) end)
         return
     end
-    local type_to_filetypes = { node = { "typescript" }, chrome = { "typescriptreact" } }
-    local configs = vscode.getconfigs()
-    for dap_type, _ in pairs(type_to_filetypes) do
+    local type_to_filetype = { node = "typescript", chrome = "typescriptreact" }
+    for dap_type, _ in pairs(type_to_filetype) do
         dap.adapters["pwa-" .. dap_type] = {
             type = "server",
             host = "localhost",
             port = "${port}",
             executable = {
                 command = "node",
-                args = {
-                    "--inspect",
-                    js_dap_path,
-                    "${port}",
-                },
+                args = { "--inspect", js_dap_path, "${port}" },
             },
         }
     end
-    for _, config in ipairs(configs) do
-        local filetypes = type_to_filetypes[config.type]
-        for _, filetype in ipairs(filetypes) do
-            local dap_configs = dap.configurations[filetype] or {}
-            for i, dap_config in pairs(dap_configs) do
-                if dap_config.name == config.name then table.remove(dap_configs, i) end
-            end
-            if config.type == "chrome" then
-                ---@diagnostic disable-next-line: inject-field
-                config.userDataDir = "${workspaceFolder}/.chromium-user-data"
-                ---@diagnostic disable-next-line: inject-field
-                config.skipFiles = { "<node_internals>/**", "node_modules/**", "**/node_modules/**" }
-            end
-            if config.type == "node" then
-                ---@diagnostic disable-next-line: inject-field
-                config.console = "integratedTerminal"
-                ---@diagnostic disable-next-line: inject-field
-                config.skipFiles = { "<node_internals>/**", "node_modules/**", "**/node_modules/**" }
-            end
-            ---@diagnostic disable-next-line: inject-field
-            config.protocol = "inspector"
-            config.type = "pwa-" .. config.type
-            table.insert(dap_configs, config)
-            dap.configurations[filetype] = dap_configs
-        end
+    ---@diagnostic disable-next-line: duplicate-set-field
+    dap.providers.configs["dap.launch.json"] = function() return {} end
+    local vscode_configs = vscode.getconfigs()
+    vscode_configs = utils.list_filter(vscode_configs, function(val) return val.request == "launch" end)
+    for _, config in ipairs(vscode_configs) do
+        local filetype = type_to_filetype[config.type]
+        if dap.configurations[filetype] == nil then dap.configurations[filetype] = {} end
+        clean_dap_config(config)
+        table.insert(dap.configurations[filetype], config)
     end
     register_keymaps()
 end
