@@ -28,7 +28,7 @@ end
 function M.enabled()
     local utils = require("utils")
     local cargo_files = get_cargo_files()
-    return utils.table_length(cargo_files) > 0
+    return utils.table_count(cargo_files) > 0
 end
 
 local is_building = false
@@ -46,7 +46,7 @@ local function register_build_keymap(cargo_files)
 
             local success_count = 0
             local finished_count = 0
-            local project_count = utils.table_length(cargo_files)
+            local project_count = utils.table_count(cargo_files)
 
             for _, cargo_file in ipairs(cargo_files) do
                 local working_dir = vim.fs.dirname(cargo_file)

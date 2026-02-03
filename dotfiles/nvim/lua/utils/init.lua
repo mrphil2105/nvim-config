@@ -1,11 +1,47 @@
 local M = {}
 
-function M.table_length(tab)
+function M.table_count(tbl)
     local count = 0
-    for _ in pairs(tab) do
+    for _ in pairs(tbl) do
         count = count + 1
     end
     return count
+end
+
+function M.table_map(tbl, f)
+    local res = {}
+    for k, v in pairs(tbl) do
+        res[k] = f(v)
+    end
+    return res
+end
+
+function M.list_map(tbl, f)
+    local res = {}
+    for i, v in ipairs(tbl) do
+        res[i] = f(v)
+    end
+    return res
+end
+
+function M.table_filter(tbl, f)
+    local res = {}
+    for k, v in pairs(tbl) do
+        if f(v, k) then res[k] = v end
+    end
+    return res
+end
+
+function M.list_filter(lst, f)
+    local res = {}
+    local idx = 1
+    for i, v in ipairs(lst) do
+        if f(v, i) then
+            res[idx] = v
+            idx = idx + 1
+        end
+    end
+    return res
 end
 
 function M.endswith(str, suf) return string.sub(str, -#suf) == suf end
@@ -24,14 +60,14 @@ end
 ---@return string
 function M.path_combine(...)
     local parts = { ... }
-    local len = M.table_length(parts)
+    local count = M.table_count(parts)
     local path = ""
-    for i = 1, len do
+    for i = 1, count do
         local part = parts[i]
         if i ~= 1 and part:sub(1, 1) == "/" then part = part:sub(2) end
 
         path = path .. part
-        if i ~= len and path:sub(-1) ~= "/" then path = path .. "/" end
+        if i ~= count and path:sub(-1) ~= "/" then path = path .. "/" end
     end
     return path
 end
