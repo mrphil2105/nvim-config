@@ -24,6 +24,7 @@ in
       nodejs_22 # For Copilot
       rust-analyzer
       stylua
+      texlab
       tree-sitter
       typescript-go
       vscode-extensions.vadimcn.vscode-lldb

@@ -22,4 +22,5 @@ return {
     tsgo = { cmd = { "tsgo", "--lsp", "--stdio" } },
     biome = {},
     cssls = {},
+    texlab = {},
 }

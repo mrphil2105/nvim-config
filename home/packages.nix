@@ -16,6 +16,7 @@
     playerctl
     rclone
     ripgrep
+    texliveFull
     tldr
     tree
     unzip
@@ -50,6 +51,7 @@
     vesktop
     vlc
     yubioath-flutter
+    zathura
     zoom-us
 
     # Development tools

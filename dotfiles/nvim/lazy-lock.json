@@ -30,5 +30,6 @@
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
   "vim-razor": { "branch": "master", "commit": "305dd1db88c657c0c02effbee1a88048479bb0c4" },
   "vim-sleuth": { "branch": "master", "commit": "be69bff86754b1aa5adcbb527d7fcd1635a84080" },
-  "vim-tmux-navigator": { "branch": "master", "commit": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432" }
+  "vim-tmux-navigator": { "branch": "master", "commit": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432" },
+  "vimtex": { "branch": "master", "commit": "f707368022cdb851716be0d2970b90599c84a6a6" }
 }
