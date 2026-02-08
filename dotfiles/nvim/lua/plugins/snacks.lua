@@ -20,6 +20,7 @@ return {
         { "<leader>fc", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
         { "<leader>fh", function() Snacks.picker.help() end, desc = "Help Pages" },
         { "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume" },
+        { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
         { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
         { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
         { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
