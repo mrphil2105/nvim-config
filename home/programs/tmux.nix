@@ -20,6 +20,7 @@
       bind j select-pane -D
       bind k select-pane -U
       bind l select-pane -R
+      bind -n C-_ select-pane -l
       bind -r C-h resize-pane -L 5
       bind -r C-j resize-pane -D 5
       bind -r C-k resize-pane -U 5
@@ -28,6 +29,10 @@
       bind -r M-j resize-pane -D 1
       bind -r M-k resize-pane -U 1
       bind -r M-l resize-pane -R 1
+      unbind Left
+      unbind Right
+      unbind Up
+      unbind Down
       unbind C-Left
       unbind C-Right
       unbind C-Up
@@ -36,6 +41,7 @@
       unbind M-Right
       unbind M-Up
       unbind M-Down
+      unbind -n C-\\
     '';
     plugins = with pkgs.tmuxPlugins; [
       vim-tmux-navigator
