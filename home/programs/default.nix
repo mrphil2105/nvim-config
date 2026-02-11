@@ -5,7 +5,7 @@
     ./yazi.nix
     ./git.nix
     ./tmux.nix
-    ./alacritty.nix
+    ./ghostty.nix
     ./walker.nix
     ./vscode.nix
     ./pycharm.nix

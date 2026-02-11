@@ -12,7 +12,7 @@
     ];
     fontconfig.useEmbeddedBitmaps = true;
     fontconfig.defaultFonts = {
-      monospace = [ "JetBrainsMono Nerd Font" ];
+      monospace = [ "JetBrainsMono NF" ];
     };
   };
 }

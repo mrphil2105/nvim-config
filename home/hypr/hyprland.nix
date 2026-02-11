@@ -9,9 +9,9 @@ in
     package = null;
     portalPackage = null;
     settings = {
-      "$terminal" = "alacritty";
-      "$fileManager" = "alacritty --class Yazi -e yazi";
-      "$audioMixer" = "alacritty --class wiremix -e wiremix --tab output";
+      "$terminal" = "ghostty";
+      "$fileManager" = "ghostty --title=Yazi -e yazi";
+      "$audioMixer" = "ghostty --title=wiremix -e wiremix --tab output";
       "$menu" = "walker";
       "$browser" = "firefox";
       "$lockScreen" = "hyprlock";
@@ -190,7 +190,7 @@ in
         # Fix flickering issues when hovering tooltips
         "match:class jetbrains-pycharm, match:title ^win.*, no_initial_focus on"
         "match:class firefox, workspace 3"
-        "match:class Yazi, workspace 4"
+        "match:title Yazi, workspace 4"
         "match:class Ferdium, workspace 5"
         "match:class Bitwarden, workspace 7"
       ];
