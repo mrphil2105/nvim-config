@@ -10,6 +10,7 @@
     ./users.nix
     ./packages.nix
     ./fonts.nix
+    ./virtualisation.nix
   ];
   nix.settings.experimental-features = [
     "nix-command"
@@ -20,5 +21,4 @@
   programs.nix-ld.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.envfs.enable = true;
-  virtualisation.docker.enable = true;
 }
