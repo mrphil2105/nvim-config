@@ -24,7 +24,6 @@ in
       v = "nvim";
       s = "systemctl suspend";
       sl = "nohup hyprlock >/dev/null 2>&1 & sleep 0.3 && systemctl suspend";
-      dionysos = "ssh group01@dionysos.itu.dk";
       ituvpn = "sudo openfortivpn sslvpn.itu.dk -u phimo";
     };
     plugins = [
