@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   hardware.nvidia = {
     modesetting.enable = true;
@@ -10,4 +10,5 @@
   };
   services.xserver.videoDrivers = [ "nvidia" ];
   services.lact.enable = true;
+  programs.obs-studio.package = pkgs.obs-studio.override { cudaSupport = true; };
 }

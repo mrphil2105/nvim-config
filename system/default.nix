@@ -8,9 +8,10 @@
     ./sound.nix
     ./auth.nix
     ./users.nix
+    ./virtualisation.nix
     ./packages.nix
     ./fonts.nix
-    ./virtualisation.nix
+    ./obs-studio.nix
   ];
   nix.settings.experimental-features = [
     "nix-command"
