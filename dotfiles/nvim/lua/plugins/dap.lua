@@ -66,6 +66,7 @@ return {
                 end
                 break
             end
+            require("plugins.dap.python").setup()
         end
     end,
     keys = {

@@ -31,9 +31,10 @@ in
       vscode-langservers-extracted
       (python3.withPackages (
         ps: with ps; [
-          python-lsp-server
           black
           cssbeautifier
+          debugpy
+          python-lsp-server
         ]
       ))
     ];
