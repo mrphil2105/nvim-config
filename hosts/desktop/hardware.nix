@@ -53,7 +53,6 @@
       "user"
       "exec"
       "umask=077"
-      "windows_names"
       "noatime"
       "prealloc"
     ];
