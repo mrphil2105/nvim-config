@@ -155,6 +155,10 @@ in
         ", PRINT, exec, hyprshot -m output --clipboard-only"
         "$mainMod, PRINT, exec, hyprshot -m window --clipboard-only"
         "$mainMod SHIFT, PRINT, exec, hyprshot -m region --clipboard-only"
+
+        "CONTROL, PRINT, exec, hyprshot -m output"
+        "$mainMod CONTROL, PRINT, exec, hyprshot -m window"
+        "$mainMod SHIFT CONTROL, PRINT, exec, hyprshot -m region"
       ];
       binde = [
         "$mainMod CONTROL, H, resizeactive, -50 0"
