@@ -8,6 +8,7 @@
     fzf
     gptfdisk
     jq
+    libnotify
     net-tools
     npins
     ouch

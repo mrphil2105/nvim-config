@@ -4,6 +4,8 @@
     ./zsh.nix
     ./packages.nix
     ./cursor.nix
+    ./gtk.nix
+    ./notification.nix
     ./hypr
     ./waybar
     ./programs

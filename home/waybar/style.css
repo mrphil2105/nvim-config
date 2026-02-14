@@ -22,7 +22,8 @@
 #network,
 #power-profiles-daemon,
 #battery,
-#backlight {
+#backlight,
+#custom-notification {
     /* margin: 4px 0; */
     margin: 4px 0 0 0;
     padding: 0 8px;
@@ -44,7 +45,8 @@
 #network,
 #power-profiles-daemon,
 #battery,
-#backlight {
+#backlight,
+#custom-notification {
     margin-right: 4px;
 }
 
@@ -81,4 +83,10 @@
 #power-profiles-daemon.power-saver {
     padding-left: 10px;
     padding-right: 14px;
+}
+
+#custom-notification {
+    padding-right: 10px;
+    font-family: "JetBrainsMono NF";
+    font-size: 16px;
 }

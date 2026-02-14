@@ -11,6 +11,7 @@
     ./modules/power.nix
     ./modules/battery.nix
     ./modules/backlight.nix
+    ./modules/notification.nix
   ];
   programs.waybar = {
     enable = true;
@@ -34,6 +35,7 @@
         "power-profiles-daemon"
         "battery"
         "backlight"
+        "custom/notification"
       ];
     };
   };
