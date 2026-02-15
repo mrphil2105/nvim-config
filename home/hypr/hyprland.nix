@@ -17,7 +17,8 @@ in
       "$lockScreen" = "hyprlock";
       exec-once = [
         "hyprctl setcursor capitaine-cursors 32"
-        "waybar & ferdium & $terminal & firefox &"
+        "ghostty --title='Ghostty Primary' -e tmux &"
+        "waybar & ferdium & firefox &"
       ];
       env = [
         "XCURSOR_SIZE,32"
@@ -193,6 +194,7 @@ in
         "match:class ^$, match:title ^$, match:xwayland true, match:float true, match:fullscreen false, match:pin false, no_focus on"
         # Fix flickering issues when hovering tooltips
         "match:class jetbrains-pycharm, match:title ^win.*, no_initial_focus on"
+        "match:title Ghostty Primary, workspace 1"
         "match:class firefox, workspace 3"
         "match:title Yazi, workspace 4"
         "match:class Ferdium, workspace 5"
