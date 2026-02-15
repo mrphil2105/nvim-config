@@ -22,6 +22,7 @@ in
       nixd
       nixfmt
       nodejs_22 # For Copilot
+      pyright
       rust-analyzer
       stylua
       texlab
@@ -34,7 +35,6 @@ in
           black
           cssbeautifier
           debugpy
-          python-lsp-server
         ]
       ))
     ];

@@ -18,7 +18,7 @@ return {
         },
     },
     rust_analyzer = {},
-    pylsp = {},
+    pyright = {},
     tsgo = { cmd = { "tsgo", "--lsp", "--stdio" } },
     biome = {},
     cssls = {},
