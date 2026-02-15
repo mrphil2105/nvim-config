@@ -40,7 +40,7 @@
     brave
     ferdium
     gimp3
-    kdePackages.okular
+    imv
     krita
     libreoffice-qt-fresh
     megasync
