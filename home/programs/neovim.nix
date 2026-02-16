@@ -25,6 +25,7 @@ in
       pyright
       rust-analyzer
       stylua
+      tex-fmt
       texlab
       tree-sitter
       typescript-go

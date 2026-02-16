@@ -15,6 +15,7 @@ return {
             xml = { "xstyler", "remove_bom" },
             nix = { "nixfmt" },
             css = { "cssbeautifier" },
+            tex = { "tex-fmt" },
         },
         formatters = {
             xstyler = {
