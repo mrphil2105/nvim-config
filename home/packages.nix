@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     # Core utilities
     brightnessctl
+    ffmpeg-full
     file
     fzf
     gptfdisk
@@ -36,6 +37,7 @@
     openfortivpn
 
     # Desktop applications
+    _1password-gui
     bitwarden-desktop
     brave
     ferdium
