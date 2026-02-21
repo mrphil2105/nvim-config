@@ -50,7 +50,7 @@ local function clean_dap_config(config)
     if config.type == "chrome" then
         config.userDataDir = "${workspaceFolder}/.chromium-user-data"
         config.skipFiles = { "<node_internals>/**", "node_modules/**", "**/node_modules/**" }
-        config.runtimeExecutable = nil
+        config.runtimeExecutable = "chromium"
     end
     if config.type == "node" then
         config.console = "integratedTerminal"
@@ -69,21 +69,22 @@ function M.setup()
         return
     end
     local type_to_filetype = { node = "typescript", chrome = "typescriptreact" }
-    for dap_type, _ in pairs(type_to_filetype) do
-        dap.adapters["pwa-" .. dap_type] = {
+    dap.adapters["pwa-node"] = function(cb, config)
+        if config.request ~= "attach" then return end
+        cb {
             type = "server",
             host = "localhost",
             port = "${port}",
             executable = {
                 command = "node",
-                args = { "--inspect", js_dap_path, "${port}" },
+                args = { js_dap_path, "${port}" },
             },
         }
     end
     ---@diagnostic disable-next-line: duplicate-set-field
     dap.providers.configs["dap.launch.json"] = function() return {} end
     local vscode_configs = vscode.getconfigs()
-    vscode_configs = utils.list_filter(vscode_configs, function(val) return val.request == "launch" end)
+    vscode_configs = utils.list_filter(vscode_configs, function(val) return val.request == "attach" end)
     for _, config in ipairs(vscode_configs) do
         local filetype = type_to_filetype[config.type]
         if dap.configurations[filetype] == nil then dap.configurations[filetype] = {} end
