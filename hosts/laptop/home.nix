@@ -23,7 +23,7 @@
     ];
     windowrule = [
       "match:class vesktop, workspace 6"
-      "match:class Spotify, workspace 7"
+      "match:class spotify, workspace 7"
     ];
   };
   programs.zsh.shellAliases = {

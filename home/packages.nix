@@ -47,7 +47,7 @@
     libreoffice-qt-fresh
     megasync
     mpv
-    signal-desktop-bin
+    signal-desktop
     slack
     spotify
     tor-browser
