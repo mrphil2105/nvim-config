@@ -18,6 +18,7 @@ return {
             tex = { "tex-fmt" },
         },
         formatters = {
+            black = { prepend_args = { "--line-length", "120" } },
             xstyler = {
                 command = "xstyler",
                 args = { "--loglevel", "None", "--file", "$FILENAME" },
