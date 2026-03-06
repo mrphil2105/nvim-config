@@ -9,6 +9,7 @@ in
     package = null;
     portalPackage = null;
     settings = {
+      "$mainMod" = "SUPER";
       "$terminal" = "ghostty";
       "$fileManager" = "ghostty --title=Yazi -e yazi";
       "$audioMixer" = "ghostty --title=wiremix -e wiremix --tab output";
@@ -45,6 +46,7 @@ in
       animations.enabled = false;
       dwindle.pseudotile = true;
       dwindle.preserve_split = true;
+      scrolling.column_width = 0.95;
       misc.force_default_wallpaper = 1;
       misc.enable_anr_dialog = false;
       input = {
@@ -52,7 +54,7 @@ in
         kb_options = "caps:escape,grp:win_space_toggle";
         accel_profile = "flat";
       };
-      "$mainMod" = "SUPER";
+      workspace = [ "r[4-9], layout:scrolling" ];
       bind = [
         "$mainMod, C, killactive,"
         "$mainMod, M, exit,"
